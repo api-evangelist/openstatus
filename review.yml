@@ -1,0 +1,88 @@
+aid: openstatus
+name: OpenStatus
+review:
+  question: Does OpenStatus expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per API Evangelist scope, HTTP Server-Sent Events (SSE) is in-scope for
+    AsyncAPI modeling and WebSocket surfaces are modeled when documented.
+    OpenStatus documents neither a WebSocket nor an SSE streaming API. Event
+    delivery is push-based outbound (webhooks) and feed-based (status page
+    RSS), neither of which is a client-subscribable streaming transport, so no
+    AsyncAPI document was authored.
+findings:
+  summary: |
+    OpenStatus does not publish a documented public WebSocket API. The
+    OpenStatus platform exposes a REST (HTTPS) API at
+    https://api.openstatus.dev/v1, authenticated with the x-openstatus-key
+    header, covering monitors, incidents, status reports, status pages, page
+    subscribers, and on-demand checks. Real-time notifications are delivered
+    outbound via webhooks and integrations (email, Slack, Discord, PagerDuty,
+    SMS, etc.) and via per-status-page RSS feeds; these are server-to-consumer
+    push/poll channels, not a bidirectional or client-subscribable WebSocket
+    (ws:// or wss://) surface. No streaming WebSocket endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.openstatus.dev/v1
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound notifications to user-configured endpoints/integrations when a monitor fails or recovers. Server-to-consumer push, not WebSocket.
+      documented: true
+    - protocol: RSS
+      scheme: https
+      note: Per-status-page RSS feed of status report updates. Poll-based, not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the OpenStatus API reference or product docs as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.openstatus.dev/v1/monitor
+    - POST   https://api.openstatus.dev/v1/monitor
+    - GET    https://api.openstatus.dev/v1/monitor/{id}
+    - PUT    https://api.openstatus.dev/v1/monitor/{id}
+    - DELETE https://api.openstatus.dev/v1/monitor/{id}
+    - GET    https://api.openstatus.dev/v1/monitor/{id}/summary
+    - POST   https://api.openstatus.dev/v1/monitor/{id}/run
+    - GET    https://api.openstatus.dev/v1/incident
+    - GET    https://api.openstatus.dev/v1/incident/{id}
+    - PUT    https://api.openstatus.dev/v1/incident/{id}
+    - GET    https://api.openstatus.dev/v1/status_report
+    - POST   https://api.openstatus.dev/v1/status_report
+    - GET    https://api.openstatus.dev/v1/status_report/{id}
+    - DELETE https://api.openstatus.dev/v1/status_report/{id}
+    - POST   https://api.openstatus.dev/v1/status_report_update
+    - GET    https://api.openstatus.dev/v1/page
+    - POST   https://api.openstatus.dev/v1/page
+    - GET    https://api.openstatus.dev/v1/page/{id}
+    - PUT    https://api.openstatus.dev/v1/page/{id}
+    - POST   https://api.openstatus.dev/v1/page_subscriber
+    - POST   https://api.openstatus.dev/v1/check
+    - GET    https://api.openstatus.dev/v1/whoami
+sources:
+  - url: https://www.openstatus.dev/docs
+    type: Documentation
+    note: Platform docs describe HTTPS REST API plus webhook and RSS notifications; no WebSocket mentioned.
+  - url: https://www.openstatus.dev/docs/api-reference
+    type: APIReference
+    note: All documented endpoints are HTTPS REST under https://api.openstatus.dev/v1 with x-openstatus-key auth.
+  - url: https://github.com/openstatusHQ/openstatus
+    type: SourceCode
+    note: AGPL-3.0 open-source monorepo; no documented client-facing WebSocket API surface.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists and OpenStatus documents no SSE
+    streaming API. Outbound webhooks and per-page RSS feeds are the documented
+    event channels and are not client-subscribable streaming transports, so no
+    AsyncAPI document was authored. The REST API is fully captured in
+    openapi/openstatus-openapi.yml.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

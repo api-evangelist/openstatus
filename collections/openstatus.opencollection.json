@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenStatus API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "x-openstatus-key",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitor",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all monitors", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/monitor" },
+          "docs": "Returns all monitors belonging to the authenticated workspace."
+        },
+        {
+          "info": { "name": "Create a monitor", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/monitor",
+            "body": { "type": "json", "data": "{\n  \"name\": \"My API\",\n  \"jobType\": \"http\",\n  \"periodicity\": \"1m\",\n  \"url\": \"https://example.com\",\n  \"method\": \"GET\",\n  \"regions\": [\"iad\", \"ams\"],\n  \"active\": true\n}" }
+          },
+          "docs": "Creates a new HTTP, TCP, or DNS monitor."
+        },
+        {
+          "info": { "name": "Get a monitor", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/monitor/{{id}}" },
+          "docs": "Returns a single monitor by its identifier."
+        },
+        {
+          "info": { "name": "Update a monitor", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.openstatus.dev/v1/monitor/{{id}}",
+            "body": { "type": "json", "data": "{\n  \"name\": \"My API (updated)\",\n  \"periodicity\": \"30s\",\n  \"url\": \"https://example.com\",\n  \"regions\": [\"iad\", \"ams\", \"hkg\"]\n}" }
+          },
+          "docs": "Updates an existing monitor."
+        },
+        {
+          "info": { "name": "Delete a monitor", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.openstatus.dev/v1/monitor/{{id}}" },
+          "docs": "Deletes a monitor by its identifier."
+        },
+        {
+          "info": { "name": "Get a monitor summary", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/monitor/{{id}}/summary" },
+          "docs": "Returns aggregated uptime and latency metrics for a monitor."
+        },
+        {
+          "info": { "name": "Trigger a monitor run", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.openstatus.dev/v1/monitor/{{id}}/run" },
+          "docs": "Triggers an immediate on-demand run of the monitor across its regions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Incident",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all incidents", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/incident" },
+          "docs": "Returns all incidents for the authenticated workspace."
+        },
+        {
+          "info": { "name": "Get an incident", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/incident/{{id}}" },
+          "docs": "Returns a single incident by its identifier."
+        },
+        {
+          "info": { "name": "Update an incident", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.openstatus.dev/v1/incident/{{id}}",
+            "body": { "type": "json", "data": "{\n  \"resolvedAt\": \"2026-06-21T12:00:00.000Z\"\n}" }
+          },
+          "docs": "Acknowledges or resolves an incident."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status Report",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all status reports", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/status_report" },
+          "docs": "Returns all status reports for the authenticated workspace."
+        },
+        {
+          "info": { "name": "Create a status report", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/status_report",
+            "body": { "type": "json", "data": "{\n  \"title\": \"Investigating elevated error rates\",\n  \"status\": \"investigating\",\n  \"message\": \"We are looking into reports of elevated errors.\",\n  \"pageId\": 1,\n  \"monitorIds\": [1]\n}" }
+          },
+          "docs": "Creates a new status report on a status page."
+        },
+        {
+          "info": { "name": "Get a status report", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/status_report/{{id}}" },
+          "docs": "Returns a single status report by its identifier."
+        },
+        {
+          "info": { "name": "Delete a status report", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.openstatus.dev/v1/status_report/{{id}}" },
+          "docs": "Deletes a status report by its identifier."
+        },
+        {
+          "info": { "name": "Create a status report update", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/status_report_update",
+            "body": { "type": "json", "data": "{\n  \"statusReportId\": 1,\n  \"status\": \"resolved\",\n  \"message\": \"The issue has been resolved.\"\n}" }
+          },
+          "docs": "Appends a timeline update to an existing status report."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Page",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all status pages", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/page" },
+          "docs": "Returns all status pages for the authenticated workspace."
+        },
+        {
+          "info": { "name": "Create a status page", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/page",
+            "body": { "type": "json", "data": "{\n  \"title\": \"Acme Status\",\n  \"slug\": \"acme\",\n  \"description\": \"Acme service status\",\n  \"monitors\": [1]\n}" }
+          },
+          "docs": "Creates a new public status page."
+        },
+        {
+          "info": { "name": "Get a status page", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/page/{{id}}" },
+          "docs": "Returns a single status page by its identifier."
+        },
+        {
+          "info": { "name": "Update a status page", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.openstatus.dev/v1/page/{{id}}",
+            "body": { "type": "json", "data": "{\n  \"title\": \"Acme Status\",\n  \"slug\": \"acme\",\n  \"monitors\": [1, 2]\n}" }
+          },
+          "docs": "Updates an existing status page."
+        },
+        {
+          "info": { "name": "Create a page subscriber", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/page_subscriber",
+            "body": { "type": "json", "data": "{\n  \"email\": \"subscriber@example.com\",\n  \"pageId\": 1\n}" }
+          },
+          "docs": "Subscribes an email address to a status page's updates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Run an on-demand check", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/check",
+            "body": { "type": "json", "data": "{\n  \"url\": \"https://example.com\",\n  \"method\": \"GET\",\n  \"regions\": [\"iad\", \"ams\"],\n  \"runCount\": 1,\n  \"aggregated\": true\n}" }
+          },
+          "docs": "Runs an on-demand synthetic check against a URL from one or more regions."
+        },
+        {
+          "info": { "name": "Get the current workspace", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.openstatus.dev/v1/whoami" },
+          "docs": "Returns the workspace associated with the supplied API key."
+        }
+      ]
+    }
+  ]
+}

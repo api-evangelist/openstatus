@@ -1,0 +1,344 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: OpenStatus
+providerId: openstatus
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- Monitoring
+- Synthetic Monitoring
+- Uptime
+- Status Pages
+- Incidents
+- Open Source
+- Plans
+description: >-
+  OpenStatus is dual-distributed. The full platform is open source under
+  AGPL-3.0 and can be self-hosted at no license cost. OpenStatus Cloud is a
+  managed SaaS with a free Hobby tier plus flat monthly Starter, Pro, and Scale
+  subscriptions and a custom Enterprise tier. Paid tiers differ primarily by
+  number of monitors, minimum check frequency, number of status pages and
+  components, available regions, data retention, and notification channels.
+  The same REST API is available across hosted plans.
+notes: >-
+  Annual billing saves two months versus monthly. Additional status pages on
+  paid plans are +$20/mo each. Verify current limits and prices on the
+  OpenStatus pricing page during reconciliation.
+sources:
+- https://www.openstatus.dev/pricing
+- https://www.openstatus.dev/docs
+- https://github.com/openstatusHQ/openstatus
+plans:
+- id: openstatus-self-hosted
+  name: Self-Hosted (Open Source)
+  type: open_source
+  description: >-
+    The complete OpenStatus platform, self-hosted under the AGPL-3.0 license at
+    no license cost. Infrastructure and operational costs are borne by the
+    operator.
+  entries:
+  - label: AGPL-3.0 License
+    name: self_hosted
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (self-managed infrastructure)
+    userMultiplied: false
+  elements:
+  - name: Monitors
+  - name: Status Pages
+  - name: Status Reports
+  - name: Incidents
+  - name: REST API
+- id: openstatus-hobby
+  name: Hobby
+  type: free
+  description: >-
+    Free OpenStatus Cloud tier for personal projects. No credit card required.
+  entries:
+  - label: Monitors
+    name: monitors
+    type: limit
+    metric: monitors
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: limit
+    metric: pages
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  - label: Check Frequency
+    name: check_frequency
+    type: limit
+    metric: minutes
+    limit: 10
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 10 minute minimum interval
+    userMultiplied: false
+  elements:
+  - name: Monitors
+  - name: Status Pages
+  - name: REST API
+- id: openstatus-starter
+  name: Starter
+  type: subscription
+  description: >-
+    Entry paid OpenStatus Cloud plan for small teams.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $30/month (or $300/year)
+    userMultiplied: false
+  - label: Monitors
+    name: monitors
+    type: limit
+    metric: monitors
+    limit: 20
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: limit
+    metric: pages
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: +$20/mo per additional page
+    userMultiplied: false
+  - label: Check Frequency
+    name: check_frequency
+    type: limit
+    metric: minutes
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1 minute minimum interval
+    userMultiplied: false
+  - label: Regions
+    name: regions
+    type: limit
+    metric: regions
+    limit: 6
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 6 of 28 regions
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: limit
+    metric: months
+    limit: 3
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 3 months
+    userMultiplied: false
+  elements:
+  - name: Monitors
+  - name: Status Pages
+  - name: Status Reports
+  - name: Notifications
+  - name: REST API
+- id: openstatus-pro
+  name: Pro
+  type: subscription
+  description: >-
+    OpenStatus Cloud plan for growing teams, adding more regions, retention,
+    and advanced features.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $100/month (or $1,000/year)
+    userMultiplied: false
+  - label: Monitors
+    name: monitors
+    type: limit
+    metric: monitors
+    limit: 50
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: limit
+    metric: pages
+    limit: 5
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: +$20/mo per additional page
+    userMultiplied: false
+  - label: Check Frequency
+    name: check_frequency
+    type: limit
+    metric: seconds
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 30 second minimum interval
+    userMultiplied: false
+  - label: Regions
+    name: regions
+    type: limit
+    metric: regions
+    limit: 28
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: all 28 regions
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: limit
+    metric: months
+    limit: 12
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 12 months
+    userMultiplied: false
+  elements:
+  - name: Monitors
+  - name: Status Pages
+  - name: Status Reports
+  - name: Audit Log
+  - name: Private Locations
+  - name: OpenTelemetry Exporter
+  - name: REST API
+- id: openstatus-scale
+  name: Scale
+  type: subscription
+  description: >-
+    Highest published OpenStatus Cloud plan, with the most status pages,
+    components, and longest data retention.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $500/month (or $5,000/year)
+    userMultiplied: false
+  - label: Monitors
+    name: monitors
+    type: limit
+    metric: monitors
+    limit: 50
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: limit
+    metric: pages
+    limit: 10
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: +$20/mo per additional page
+    userMultiplied: false
+  - label: Check Frequency
+    name: check_frequency
+    type: limit
+    metric: seconds
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 30 second minimum interval
+    userMultiplied: false
+  - label: Regions
+    name: regions
+    type: limit
+    metric: regions
+    limit: 28
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: all 28 regions
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: limit
+    metric: months
+    limit: 24
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 24 months
+    userMultiplied: false
+  elements:
+  - name: Monitors
+  - name: Status Pages
+  - name: Status Reports
+  - name: Audit Log
+  - name: Private Locations
+  - name: OpenTelemetry Exporter
+  - name: REST API
+- id: openstatus-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom OpenStatus Cloud agreement for higher limits, custom regions, SSO,
+    and a dedicated SLA. Contact OpenStatus sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Limits
+  - name: Custom Regions
+  - name: SSO
+  - name: Dedicated SLA
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

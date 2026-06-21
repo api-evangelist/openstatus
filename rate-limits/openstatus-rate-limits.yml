@@ -1,0 +1,76 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: OpenStatus
+providerId: openstatus
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Monitoring
+- Synthetic Monitoring
+- Uptime
+- Status Pages
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  OpenStatus Cloud governs usage primarily through per-plan resource limits
+  rather than published per-second REST throttles. The dominant constraints are
+  the number of monitors, the minimum check frequency (periodicity), the number
+  of status pages and components, the available regions, and data retention,
+  all of which scale by subscription tier. The on-demand /check endpoint is
+  intended for ad-hoc use and is subject to fair-use limits. Self-hosted
+  deployments under AGPL-3.0 are bounded only by the operator's own
+  infrastructure.
+notes: >-
+  OpenStatus does not publish fixed numeric per-minute REST API rate limits;
+  effective throughput is governed by plan resource limits. Confirm any
+  request-rate ceilings and Retry-After behavior during reconciliation.
+sources:
+- https://www.openstatus.dev/pricing
+- https://www.openstatus.dev/docs
+- https://www.openstatus.dev/docs/api-reference
+responseCodes:
+  throttled: 429
+limits:
+- name: Monitors
+  scope: workspace
+  metric: monitors
+  limit: per-plan (1 Hobby, 20 Starter, 50 Pro/Scale)
+  notes: Maximum number of active monitors, set by subscription tier.
+- name: Check Frequency
+  scope: monitor
+  metric: interval
+  limit: per-plan (10m Hobby, 1m Starter, 30s Pro/Scale)
+  notes: Minimum periodicity between automated checks, set by tier.
+- name: Status Pages
+  scope: workspace
+  metric: pages
+  limit: per-plan (1 Hobby/Starter, 5 Pro, 10 Scale)
+  notes: Additional pages available at +$20/mo on paid plans.
+- name: Regions
+  scope: monitor
+  metric: regions
+  limit: per-plan (6 of 28 Starter, 28 of 28 Pro/Scale)
+  notes: Number of the 28 global probe regions a monitor may run from.
+- name: Data Retention
+  scope: workspace
+  metric: months
+  limit: per-plan (3 Starter, 12 Pro, 24 Scale)
+  notes: Retention window for check results and history.
+- name: On-Demand Checks
+  scope: workspace
+  metric: requests
+  limit: fair use
+  notes: The /check endpoint is intended for ad-hoc runs; subject to fair-use limits.
+policies:
+- name: Plan-Based Limits
+  description: Quotas raise as workspaces move from Hobby to Starter, Pro, Scale, and Enterprise.
+- name: Self-Hosting
+  description: Self-hosted AGPL-3.0 deployments set their own limits, bounded by operator infrastructure.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

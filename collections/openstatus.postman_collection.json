@@ -1,0 +1,241 @@
+{
+  "info": {
+    "name": "OpenStatus API",
+    "description": "REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Authenticate with an API key in the x-openstatus-key header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "x-openstatus-key", "type": "string" },
+      { "key": "value", "value": "{{apiKey}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.openstatus.dev/v1" },
+    { "key": "apiKey", "value": "" },
+    { "key": "id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Monitor",
+      "item": [
+        {
+          "name": "List all monitors",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/monitor", "host": ["{{baseUrl}}"], "path": ["monitor"] },
+            "description": "Returns all monitors belonging to the authenticated workspace."
+          }
+        },
+        {
+          "name": "Create a monitor",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/monitor", "host": ["{{baseUrl}}"], "path": ["monitor"] },
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"My API\",\n  \"jobType\": \"http\",\n  \"periodicity\": \"1m\",\n  \"url\": \"https://example.com\",\n  \"method\": \"GET\",\n  \"regions\": [\"iad\", \"ams\"],\n  \"active\": true\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Creates a new HTTP, TCP, or DNS monitor."
+          }
+        },
+        {
+          "name": "Get a monitor",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/monitor/{{id}}", "host": ["{{baseUrl}}"], "path": ["monitor", "{{id}}"] },
+            "description": "Returns a single monitor by its identifier."
+          }
+        },
+        {
+          "name": "Update a monitor",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/monitor/{{id}}", "host": ["{{baseUrl}}"], "path": ["monitor", "{{id}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"My API (updated)\",\n  \"periodicity\": \"30s\",\n  \"url\": \"https://example.com\",\n  \"regions\": [\"iad\", \"ams\", \"hkg\"]\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Updates an existing monitor."
+          }
+        },
+        {
+          "name": "Delete a monitor",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/monitor/{{id}}", "host": ["{{baseUrl}}"], "path": ["monitor", "{{id}}"] },
+            "description": "Deletes a monitor by its identifier."
+          }
+        },
+        {
+          "name": "Get a monitor summary",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/monitor/{{id}}/summary", "host": ["{{baseUrl}}"], "path": ["monitor", "{{id}}", "summary"] },
+            "description": "Returns aggregated uptime and latency metrics for a monitor."
+          }
+        },
+        {
+          "name": "Trigger a monitor run",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/monitor/{{id}}/run", "host": ["{{baseUrl}}"], "path": ["monitor", "{{id}}", "run"] },
+            "description": "Triggers an immediate on-demand run of the monitor across its regions."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Incident",
+      "item": [
+        {
+          "name": "List all incidents",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/incident", "host": ["{{baseUrl}}"], "path": ["incident"] },
+            "description": "Returns all incidents for the authenticated workspace."
+          }
+        },
+        {
+          "name": "Get an incident",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/incident/{{id}}", "host": ["{{baseUrl}}"], "path": ["incident", "{{id}}"] },
+            "description": "Returns a single incident by its identifier."
+          }
+        },
+        {
+          "name": "Update an incident",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/incident/{{id}}", "host": ["{{baseUrl}}"], "path": ["incident", "{{id}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"resolvedAt\": \"2026-06-21T12:00:00.000Z\"\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Acknowledges or resolves an incident."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Status Report",
+      "item": [
+        {
+          "name": "List all status reports",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/status_report", "host": ["{{baseUrl}}"], "path": ["status_report"] },
+            "description": "Returns all status reports for the authenticated workspace."
+          }
+        },
+        {
+          "name": "Create a status report",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/status_report", "host": ["{{baseUrl}}"], "path": ["status_report"] },
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Investigating elevated error rates\",\n  \"status\": \"investigating\",\n  \"message\": \"We are looking into reports of elevated errors.\",\n  \"pageId\": 1,\n  \"monitorIds\": [1]\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Creates a new status report on a status page."
+          }
+        },
+        {
+          "name": "Get a status report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/status_report/{{id}}", "host": ["{{baseUrl}}"], "path": ["status_report", "{{id}}"] },
+            "description": "Returns a single status report by its identifier."
+          }
+        },
+        {
+          "name": "Delete a status report",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/status_report/{{id}}", "host": ["{{baseUrl}}"], "path": ["status_report", "{{id}}"] },
+            "description": "Deletes a status report by its identifier."
+          }
+        },
+        {
+          "name": "Create a status report update",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/status_report_update", "host": ["{{baseUrl}}"], "path": ["status_report_update"] },
+            "body": { "mode": "raw", "raw": "{\n  \"statusReportId\": 1,\n  \"status\": \"resolved\",\n  \"message\": \"The issue has been resolved.\"\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Appends a timeline update to an existing status report."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Page",
+      "item": [
+        {
+          "name": "List all status pages",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/page", "host": ["{{baseUrl}}"], "path": ["page"] },
+            "description": "Returns all status pages for the authenticated workspace."
+          }
+        },
+        {
+          "name": "Create a status page",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/page", "host": ["{{baseUrl}}"], "path": ["page"] },
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Acme Status\",\n  \"slug\": \"acme\",\n  \"description\": \"Acme service status\",\n  \"monitors\": [1]\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Creates a new public status page."
+          }
+        },
+        {
+          "name": "Get a status page",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/page/{{id}}", "host": ["{{baseUrl}}"], "path": ["page", "{{id}}"] },
+            "description": "Returns a single status page by its identifier."
+          }
+        },
+        {
+          "name": "Update a status page",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/page/{{id}}", "host": ["{{baseUrl}}"], "path": ["page", "{{id}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Acme Status\",\n  \"slug\": \"acme\",\n  \"monitors\": [1, 2]\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Updates an existing status page."
+          }
+        },
+        {
+          "name": "Create a page subscriber",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/page_subscriber", "host": ["{{baseUrl}}"], "path": ["page_subscriber"] },
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"subscriber@example.com\",\n  \"pageId\": 1\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Subscribes an email address to a status page's updates."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Check",
+      "item": [
+        {
+          "name": "Run an on-demand check",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/check", "host": ["{{baseUrl}}"], "path": ["check"] },
+            "body": { "mode": "raw", "raw": "{\n  \"url\": \"https://example.com\",\n  \"method\": \"GET\",\n  \"regions\": [\"iad\", \"ams\"],\n  \"runCount\": 1,\n  \"aggregated\": true\n}", "options": { "raw": { "language": "json" } } },
+            "description": "Runs an on-demand synthetic check against a URL from one or more regions."
+          }
+        },
+        {
+          "name": "Get the current workspace",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/whoami", "host": ["{{baseUrl}}"], "path": ["whoami"] },
+            "description": "Returns the workspace associated with the supplied API key."
+          }
+        }
+      ]
+    }
+  ]
+}
