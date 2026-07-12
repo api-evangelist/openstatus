@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://www.openstatus.dev/security
+url: https://www.openstatus.dev/security
+certifications:
+- SOC 2
+evidence:
+- source: https://www.openstatus.dev/security
+  keywords:
+  - soc 2
+  - trust center

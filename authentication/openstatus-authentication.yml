@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openstatus-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: x-openstatus-key
+  description: OpenStatus API key, created in the workspace settings.
+  sources:
+  - openapi/openstatus-openapi.yml
