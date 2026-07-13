@@ -1,0 +1,14 @@
+{
+  "repo": "openstatus",
+  "feeds": [
+    {
+      "source": "https://www.openstatus.dev/blog",
+      "feed_url": "https://www.openstatus.dev/blog",
+      "title": "OpenStatus Blog (HTML scrape, no feed found)",
+      "saved": 0,
+      "error": "parse_failed"
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 25
+}
