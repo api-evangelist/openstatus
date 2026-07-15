@@ -138,6 +138,8 @@ apis:
     without creating a persistent monitor, returning per-region latency and assertion
     results.
 common:
+- type: AgenticAccess
+  url: agentic-access/openstatus-agentic-access.yml
 - type: TrustCenter
   url: security/openstatus-trust-center.yml
 - type: VulnerabilityDisclosure
