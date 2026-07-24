@@ -1,0 +1,182 @@
+openapi: 3.0.1
+info:
+  title: OpenStatus Check API
+  description: REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.
+  termsOfService: https://www.openstatus.dev/legal/terms
+  contact:
+    name: OpenStatus Support
+    url: https://www.openstatus.dev
+    email: ping@openstatus.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/openstatusHQ/openstatus/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.openstatus.dev/v1
+  description: OpenStatus Cloud API
+security:
+- apiKey: []
+tags:
+- name: Check
+  description: On-demand synthetic checks.
+paths:
+  /check:
+    post:
+      operationId: createCheck
+      tags:
+      - Check
+      summary: Run an on-demand check
+      description: Runs an on-demand synthetic check against a URL from one or more regions without creating a persistent monitor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInput'
+      responses:
+        '200':
+          description: The aggregated check results per region.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Check'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /whoami:
+    get:
+      operationId: getWhoami
+      tags:
+      - Check
+      summary: Get the current workspace
+      description: Returns the workspace associated with the supplied API key.
+      responses:
+        '200':
+          description: The current workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    CheckResult:
+      type: object
+      properties:
+        region:
+          type: string
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
+          type: string
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
+    CheckInput:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - HEAD
+          - OPTIONS
+          default: GET
+        regions:
+          type: array
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        runCount:
+          type: integer
+          description: Number of runs per region.
+        aggregated:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        plan:
+          type: string
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Check:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+        method:
+          type: string
+        regions:
+          type: array
+          items:
+            type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckResult'
+  responses:
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-openstatus-key
+      description: OpenStatus API key, created in the workspace settings.

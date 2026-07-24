@@ -1,0 +1,254 @@
+openapi: 3.0.1
+info:
+  title: OpenStatus Check Status Report API
+  description: REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.
+  termsOfService: https://www.openstatus.dev/legal/terms
+  contact:
+    name: OpenStatus Support
+    url: https://www.openstatus.dev
+    email: ping@openstatus.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/openstatusHQ/openstatus/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.openstatus.dev/v1
+  description: OpenStatus Cloud API
+security:
+- apiKey: []
+tags:
+- name: Status Report
+  description: Status reports and their updates.
+paths:
+  /status_report:
+    get:
+      operationId: getAllStatusReports
+      tags:
+      - Status Report
+      summary: List all status reports
+      description: Returns all status reports for the authenticated workspace.
+      responses:
+        '200':
+          description: A list of status reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatusReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createStatusReport
+      tags:
+      - Status Report
+      summary: Create a status report
+      description: Creates a new status report on a status page.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusReportInput'
+      responses:
+        '200':
+          description: The created status report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReport'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /status_report/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getStatusReport
+      tags:
+      - Status Report
+      summary: Get a status report
+      description: Returns a single status report by its identifier.
+      responses:
+        '200':
+          description: The requested status report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteStatusReport
+      tags:
+      - Status Report
+      summary: Delete a status report
+      description: Deletes a status report by its identifier.
+      responses:
+        '200':
+          description: The status report was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /status_report_update:
+    post:
+      operationId: createStatusReportUpdate
+      tags:
+      - Status Report
+      summary: Create a status report update
+      description: Appends a timeline update (investigating, identified, monitoring, or resolved) to an existing status report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusReportUpdateInput'
+      responses:
+        '200':
+          description: The created status report update.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReportUpdate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    StatusReportInput:
+      type: object
+      required:
+      - title
+      - status
+      - message
+      properties:
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
+        message:
+          type: string
+          description: The first update message for the report.
+        date:
+          type: string
+          format: date-time
+        pageId:
+          type: integer
+        monitorIds:
+          type: array
+          items:
+            type: integer
+    StatusReportUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
+        message:
+          type: string
+        date:
+          type: string
+          format: date-time
+        statusReportId:
+          type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    StatusReport:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
+        pageId:
+          type: integer
+        monitorIds:
+          type: array
+          items:
+            type: integer
+        statusReportUpdateIds:
+          type: array
+          items:
+            type: integer
+    StatusReportUpdateInput:
+      type: object
+      required:
+      - status
+      - message
+      - statusReportId
+      properties:
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
+        message:
+          type: string
+        date:
+          type: string
+          format: date-time
+        statusReportId:
+          type: integer
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-openstatus-key
+      description: OpenStatus API key, created in the workspace settings.

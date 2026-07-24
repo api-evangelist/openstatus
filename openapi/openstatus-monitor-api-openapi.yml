@@ -1,0 +1,427 @@
+openapi: 3.0.1
+info:
+  title: OpenStatus Check Monitor API
+  description: REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.
+  termsOfService: https://www.openstatus.dev/legal/terms
+  contact:
+    name: OpenStatus Support
+    url: https://www.openstatus.dev
+    email: ping@openstatus.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/openstatusHQ/openstatus/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.openstatus.dev/v1
+  description: OpenStatus Cloud API
+security:
+- apiKey: []
+tags:
+- name: Monitor
+  description: HTTP, TCP, and DNS uptime monitors.
+paths:
+  /monitor:
+    get:
+      operationId: getAllMonitors
+      tags:
+      - Monitor
+      summary: List all monitors
+      description: Returns all monitors belonging to the authenticated workspace.
+      responses:
+        '200':
+          description: A list of monitors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Monitor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMonitor
+      tags:
+      - Monitor
+      summary: Create a monitor
+      description: Creates a new HTTP, TCP, or DNS monitor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitorInput'
+      responses:
+        '200':
+          description: The created monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /monitor/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getMonitor
+      tags:
+      - Monitor
+      summary: Get a monitor
+      description: Returns a single monitor by its identifier.
+      responses:
+        '200':
+          description: The requested monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateMonitor
+      tags:
+      - Monitor
+      summary: Update a monitor
+      description: Updates an existing monitor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitorInput'
+      responses:
+        '200':
+          description: The updated monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMonitor
+      tags:
+      - Monitor
+      summary: Delete a monitor
+      description: Deletes a monitor by its identifier.
+      responses:
+        '200':
+          description: The monitor was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /monitor/{id}/summary:
+    parameters:
+    - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getMonitorSummary
+      tags:
+      - Monitor
+      summary: Get a monitor summary
+      description: Returns aggregated uptime and latency metrics for a monitor.
+      responses:
+        '200':
+          description: The monitor summary.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitorSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /monitor/{id}/run:
+    parameters:
+    - $ref: '#/components/parameters/IdParam'
+    post:
+      operationId: runMonitor
+      tags:
+      - Monitor
+      summary: Trigger a monitor run
+      description: Triggers an immediate on-demand run of the monitor across its regions.
+      responses:
+        '200':
+          description: The triggered run results.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    CheckResult:
+      type: object
+      properties:
+        region:
+          type: string
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
+          type: string
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
+    Assertion:
+      type: object
+      description: A condition evaluated against the check response.
+      properties:
+        type:
+          type: string
+          enum:
+          - status
+          - header
+          - textBody
+          - jsonBody
+        compare:
+          type: string
+          enum:
+          - eq
+          - not_eq
+          - gt
+          - gte
+          - lt
+          - lte
+          - contains
+          - not_contains
+        target:
+          type: string
+        key:
+          type: string
+    MonitorSummary:
+      type: object
+      properties:
+        monitorId:
+          type: integer
+        uptime:
+          type: number
+          description: Uptime percentage over the reporting window.
+        avgLatency:
+          type: number
+          description: Average latency in milliseconds.
+        p95Latency:
+          type: number
+        p99Latency:
+          type: number
+        lastTimestamp:
+          type: string
+          format: date-time
+    Monitor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the monitor.
+        name:
+          type: string
+          description: Display name of the monitor.
+        description:
+          type: string
+        active:
+          type: boolean
+          description: Whether the monitor is actively running.
+        public:
+          type: boolean
+          description: Whether monitor data is publicly visible.
+        jobType:
+          type: string
+          description: The monitor protocol.
+          enum:
+          - http
+          - tcp
+          - dns
+        periodicity:
+          type: string
+          description: How frequently the monitor runs.
+          enum:
+          - 30s
+          - 1m
+          - 5m
+          - 10m
+          - 30m
+          - 1h
+        url:
+          type: string
+          description: The endpoint or host to check.
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - HEAD
+          - OPTIONS
+        regions:
+          type: array
+          description: Regions the monitor runs from (up to 28 available).
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        assertions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assertion'
+        timeout:
+          type: integer
+          description: Request timeout in milliseconds.
+        degradedAfter:
+          type: integer
+          description: Latency threshold (ms) above which the monitor is degraded.
+        retry:
+          type: integer
+          description: Number of retries before marking an outage.
+        otelEndpoint:
+          type: string
+          description: OpenTelemetry endpoint to export metrics to.
+        otelHeaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+    MonitorInput:
+      type: object
+      required:
+      - periodicity
+      - url
+      - regions
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+          default: true
+        public:
+          type: boolean
+          default: false
+        jobType:
+          type: string
+          enum:
+          - http
+          - tcp
+          - dns
+          default: http
+        periodicity:
+          type: string
+          enum:
+          - 30s
+          - 1m
+          - 5m
+          - 10m
+          - 30m
+          - 1h
+        url:
+          type: string
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - HEAD
+          - OPTIONS
+          default: GET
+        regions:
+          type: array
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        assertions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assertion'
+        timeout:
+          type: integer
+          default: 45000
+        degradedAfter:
+          type: integer
+        retry:
+          type: integer
+          default: 3
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-openstatus-key
+      description: OpenStatus API key, created in the workspace settings.

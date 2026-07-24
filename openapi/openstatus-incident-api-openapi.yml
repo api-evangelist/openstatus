@@ -1,0 +1,157 @@
+openapi: 3.0.1
+info:
+  title: OpenStatus Check Incident API
+  description: REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.
+  termsOfService: https://www.openstatus.dev/legal/terms
+  contact:
+    name: OpenStatus Support
+    url: https://www.openstatus.dev
+    email: ping@openstatus.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/openstatusHQ/openstatus/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.openstatus.dev/v1
+  description: OpenStatus Cloud API
+security:
+- apiKey: []
+tags:
+- name: Incident
+  description: Incidents automatically opened when a monitor fails.
+paths:
+  /incident:
+    get:
+      operationId: getAllIncidents
+      tags:
+      - Incident
+      summary: List all incidents
+      description: Returns all incidents for the authenticated workspace.
+      responses:
+        '200':
+          description: A list of incidents.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Incident'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /incident/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getIncident
+      tags:
+      - Incident
+      summary: Get an incident
+      description: Returns a single incident by its identifier.
+      responses:
+        '200':
+          description: The requested incident.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateIncident
+      tags:
+      - Incident
+      summary: Update an incident
+      description: Acknowledges or resolves an incident.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentUpdate'
+      responses:
+        '200':
+          description: The updated incident.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    IncidentUpdate:
+      type: object
+      properties:
+        acknowledgedAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Incident:
+      type: object
+      properties:
+        id:
+          type: integer
+        startedAt:
+          type: string
+          format: date-time
+        acknowledgedAt:
+          type: string
+          format: date-time
+        acknowledgedBy:
+          type: integer
+        resolvedAt:
+          type: string
+          format: date-time
+        resolvedBy:
+          type: integer
+        monitorId:
+          type: integer
+          description: The monitor that triggered the incident.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-openstatus-key
+      description: OpenStatus API key, created in the workspace settings.
