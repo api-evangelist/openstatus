@@ -8,7 +8,20 @@ description: OpenStatus is an open-source synthetic monitoring and status-page p
   REST API at https://api.openstatus.dev/v1 lets teams programmatically manage monitors,
   status pages, status reports, incidents, and on-demand checks. The platform is free
   to self-host (AGPL-3.0) and also available as a managed cloud service.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/openstatus.png
 tags:
 - Monitoring
 - Synthetic Monitoring
@@ -21,122 +34,176 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: openstatus:monitors
-  name: OpenStatus Monitors
-  tags:
-  - Monitors
-  - Uptime
-  - HTTP
-  - TCP
-  - DNS
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: openstatus:openstatus-check-api
+  name: OpenStatus Check API
+  description: On-demand synthetic checks.
   humanURL: https://www.openstatus.dev/docs/api-reference/v1/monitor
   baseURL: https://api.openstatus.dev/v1
-  properties:
-  - url: https://www.openstatus.dev/docs/api-reference/v1/monitor
-    type: Documentation
-  - url: https://www.openstatus.dev/docs/api-reference/v1/monitor
-    type: APIReference
-  - url: openapi/openstatus-openapi.yml
-    type: OpenAPI
-  - url: collections/openstatus.postman_collection.json
-    type: PostmanCollection
-  - url: collections/openstatus.opencollection.json
-    type: OpenCollection
-  description: Create, read, update, and delete HTTP, TCP, and DNS uptime monitors
-    running across 28 global regions, with periodicity, assertions, retries, timeouts,
-    and OpenTelemetry export. Includes monitor summaries, results, and on-demand runs.
-- aid: openstatus:incidents
-  name: OpenStatus Incidents
   tags:
-  - Incidents
-  - Alerts
-  - Acknowledgement
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.openstatus.dev/docs/api-reference/v1/incident
-  baseURL: https://api.openstatus.dev/v1
+  - Check
   properties:
-  - url: https://www.openstatus.dev/docs/api-reference/v1/incident
-    type: Documentation
-  - url: https://www.openstatus.dev/docs/api-reference/v1/incident
-    type: APIReference
-  - url: openapi/openstatus-openapi.yml
-    type: OpenAPI
-  - url: collections/openstatus.postman_collection.json
-    type: PostmanCollection
-  - url: collections/openstatus.opencollection.json
-    type: OpenCollection
-  description: List, retrieve, acknowledge, and resolve incidents automatically opened
-    when a monitor fails its assertions, tying detected downtime back to the originating
-    monitor.
-- aid: openstatus:status-reports
-  name: OpenStatus Status Reports
+  - type: OpenAPI
+    url: openapi/openstatus-check-api-openapi.yml
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: PostmanCollection
+    url: collections/openstatus.postman_collection.json
+  - type: OpenCollection
+    url: collections/openstatus.opencollection.json
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+- aid: openstatus:openstatus-incident-api
+  name: OpenStatus Incident API
+  description: Incidents automatically opened when a monitor fails.
+  humanURL: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  baseURL: https://api.openstatus.dev/v1
   tags:
-  - Status Reports
-  - Updates
-  - Communication
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.openstatus.dev/docs/api-reference/v1/status-report
-  baseURL: https://api.openstatus.dev/v1
+  - Incident
   properties:
-  - url: https://www.openstatus.dev/docs/api-reference/v1/status-report
-    type: Documentation
-  - url: https://www.openstatus.dev/docs/api-reference/v1/status-report
-    type: APIReference
-  - url: openapi/openstatus-openapi.yml
-    type: OpenAPI
-  - url: collections/openstatus.postman_collection.json
-    type: PostmanCollection
-  - url: collections/openstatus.opencollection.json
-    type: OpenCollection
-  description: Create and manage status reports and their timeline of updates (investigating,
-    identified, monitoring, resolved) that publish incident communications to a status
-    page and its affected monitors.
-- aid: openstatus:status-pages
-  name: OpenStatus Status Pages
+  - type: OpenAPI
+    url: openapi/openstatus-incident-api-openapi.yml
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: PostmanCollection
+    url: collections/openstatus.postman_collection.json
+  - type: OpenCollection
+    url: collections/openstatus.opencollection.json
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+- aid: openstatus:openstatus-monitor-api
+  name: OpenStatus Monitor API
+  description: HTTP, TCP, and DNS uptime monitors.
+  humanURL: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  baseURL: https://api.openstatus.dev/v1
   tags:
-  - Status Pages
-  - Subscribers
-  - Public
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.openstatus.dev/docs/api-reference/v1/page
-  baseURL: https://api.openstatus.dev/v1
+  - Monitor
   properties:
-  - url: https://www.openstatus.dev/docs/api-reference/v1/page
-    type: Documentation
-  - url: https://www.openstatus.dev/docs/api-reference/v1/page
-    type: APIReference
-  - url: openapi/openstatus-openapi.yml
-    type: OpenAPI
-  - url: collections/openstatus.postman_collection.json
-    type: PostmanCollection
-  - url: collections/openstatus.opencollection.json
-    type: OpenCollection
-  description: Create and manage public status pages with custom domains, access controls
-    (public, password, email-domain), grouped monitor components, and email subscribers.
-- aid: openstatus:checks
-  name: OpenStatus Checks
+  - type: OpenAPI
+    url: openapi/openstatus-monitor-api-openapi.yml
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: PostmanCollection
+    url: collections/openstatus.postman_collection.json
+  - type: OpenCollection
+    url: collections/openstatus.opencollection.json
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+- aid: openstatus:openstatus-page-api
+  name: OpenStatus Page API
+  description: Public status pages and subscribers.
+  humanURL: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  baseURL: https://api.openstatus.dev/v1
   tags:
-  - Checks
-  - On-Demand
-  - Synthetic
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.openstatus.dev/docs/api-reference/v1/check
-  baseURL: https://api.openstatus.dev/v1
+  - Page
   properties:
-  - url: https://www.openstatus.dev/docs/api-reference/v1/check
-    type: Documentation
-  - url: https://www.openstatus.dev/docs/api-reference/v1/check
-    type: APIReference
-  - url: openapi/openstatus-openapi.yml
-    type: OpenAPI
-  - url: collections/openstatus.postman_collection.json
-    type: PostmanCollection
-  - url: collections/openstatus.opencollection.json
-    type: OpenCollection
-  description: Run on-demand synthetic checks against a URL from one or more regions
-    without creating a persistent monitor, returning per-region latency and assertion
-    results.
+  - type: OpenAPI
+    url: openapi/openstatus-page-api-openapi.yml
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: PostmanCollection
+    url: collections/openstatus.postman_collection.json
+  - type: OpenCollection
+    url: collections/openstatus.opencollection.json
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+- aid: openstatus:openstatus-status-report-api
+  name: OpenStatus Status Report API
+  description: Status reports and their updates.
+  humanURL: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  baseURL: https://api.openstatus.dev/v1
+  tags:
+  - Status Report
+  properties:
+  - type: OpenAPI
+    url: openapi/openstatus-status-report-api-openapi.yml
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/monitor
+  - type: PostmanCollection
+    url: collections/openstatus.postman_collection.json
+  - type: OpenCollection
+    url: collections/openstatus.opencollection.json
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/incident
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/status-report
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/page
+  - type: Documentation
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
+  - type: APIReference
+    url: https://www.openstatus.dev/docs/api-reference/v1/check
 common:
 - type: AgenticAccess
   url: agentic-access/openstatus-agentic-access.yml
