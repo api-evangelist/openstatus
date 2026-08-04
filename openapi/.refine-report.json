@@ -1,0 +1,22 @@
+{
+  "provider": "openstatus",
+  "sources": [
+    "openstatus-check-api-openapi.yml",
+    "openstatus-incident-api-openapi.yml",
+    "openstatus-monitor-api-openapi.yml",
+    "openstatus-page-api-openapi.yml",
+    "openstatus-status-report-api-openapi.yml"
+  ],
+  "outputs": [
+    "openstatus-check-api-openapi.yml",
+    "openstatus-incident-api-openapi.yml",
+    "openstatus-monitor-api-openapi.yml",
+    "openstatus-page-api-openapi.yml",
+    "openstatus-status-report-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

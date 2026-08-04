@@ -1,0 +1,1008 @@
+openapi: 3.0.1
+info:
+  title: OpenStatus API
+  description: >-
+    REST API for the OpenStatus open-source synthetic monitoring and status-page
+    platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions,
+    publish status pages, file status reports, work incidents, and run on-demand
+    checks. Authenticate with an API key in the x-openstatus-key header.
+  termsOfService: https://www.openstatus.dev/legal/terms
+  contact:
+    name: OpenStatus Support
+    url: https://www.openstatus.dev
+    email: ping@openstatus.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/openstatusHQ/openstatus/blob/main/LICENSE
+  version: '1.0'
+servers:
+  - url: https://api.openstatus.dev/v1
+    description: OpenStatus Cloud API
+security:
+  - apiKey: []
+tags:
+  - name: Monitor
+    description: HTTP, TCP, and DNS uptime monitors.
+  - name: Incident
+    description: Incidents automatically opened when a monitor fails.
+  - name: Status Report
+    description: Status reports and their updates.
+  - name: Page
+    description: Public status pages and subscribers.
+  - name: Check
+    description: On-demand synthetic checks.
+paths:
+  /monitor:
+    get:
+      operationId: getAllMonitors
+      tags:
+        - Monitor
+      summary: List all monitors
+      description: Returns all monitors belonging to the authenticated workspace.
+      responses:
+        '200':
+          description: A list of monitors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Monitor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMonitor
+      tags:
+        - Monitor
+      summary: Create a monitor
+      description: Creates a new HTTP, TCP, or DNS monitor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitorInput'
+      responses:
+        '200':
+          description: The created monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /monitor/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getMonitor
+      tags:
+        - Monitor
+      summary: Get a monitor
+      description: Returns a single monitor by its identifier.
+      responses:
+        '200':
+          description: The requested monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateMonitor
+      tags:
+        - Monitor
+      summary: Update a monitor
+      description: Updates an existing monitor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitorInput'
+      responses:
+        '200':
+          description: The updated monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMonitor
+      tags:
+        - Monitor
+      summary: Delete a monitor
+      description: Deletes a monitor by its identifier.
+      responses:
+        '200':
+          description: The monitor was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /monitor/{id}/summary:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getMonitorSummary
+      tags:
+        - Monitor
+      summary: Get a monitor summary
+      description: Returns aggregated uptime and latency metrics for a monitor.
+      responses:
+        '200':
+          description: The monitor summary.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitorSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /monitor/{id}/run:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    post:
+      operationId: runMonitor
+      tags:
+        - Monitor
+      summary: Trigger a monitor run
+      description: Triggers an immediate on-demand run of the monitor across its regions.
+      responses:
+        '200':
+          description: The triggered run results.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /incident:
+    get:
+      operationId: getAllIncidents
+      tags:
+        - Incident
+      summary: List all incidents
+      description: Returns all incidents for the authenticated workspace.
+      responses:
+        '200':
+          description: A list of incidents.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Incident'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /incident/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getIncident
+      tags:
+        - Incident
+      summary: Get an incident
+      description: Returns a single incident by its identifier.
+      responses:
+        '200':
+          description: The requested incident.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateIncident
+      tags:
+        - Incident
+      summary: Update an incident
+      description: Acknowledges or resolves an incident.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentUpdate'
+      responses:
+        '200':
+          description: The updated incident.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /status_report:
+    get:
+      operationId: getAllStatusReports
+      tags:
+        - Status Report
+      summary: List all status reports
+      description: Returns all status reports for the authenticated workspace.
+      responses:
+        '200':
+          description: A list of status reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatusReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createStatusReport
+      tags:
+        - Status Report
+      summary: Create a status report
+      description: Creates a new status report on a status page.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusReportInput'
+      responses:
+        '200':
+          description: The created status report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReport'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /status_report/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getStatusReport
+      tags:
+        - Status Report
+      summary: Get a status report
+      description: Returns a single status report by its identifier.
+      responses:
+        '200':
+          description: The requested status report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteStatusReport
+      tags:
+        - Status Report
+      summary: Delete a status report
+      description: Deletes a status report by its identifier.
+      responses:
+        '200':
+          description: The status report was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /status_report_update:
+    post:
+      operationId: createStatusReportUpdate
+      tags:
+        - Status Report
+      summary: Create a status report update
+      description: >-
+        Appends a timeline update (investigating, identified, monitoring, or
+        resolved) to an existing status report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusReportUpdateInput'
+      responses:
+        '200':
+          description: The created status report update.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReportUpdate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /page:
+    get:
+      operationId: getAllPages
+      tags:
+        - Page
+      summary: List all status pages
+      description: Returns all status pages for the authenticated workspace.
+      responses:
+        '200':
+          description: A list of status pages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPage
+      tags:
+        - Page
+      summary: Create a status page
+      description: Creates a new public status page.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: The created status page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /page/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      operationId: getPage
+      tags:
+        - Page
+      summary: Get a status page
+      description: Returns a single status page by its identifier.
+      responses:
+        '200':
+          description: The requested status page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePage
+      tags:
+        - Page
+      summary: Update a status page
+      description: Updates an existing status page.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: The updated status page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /page_subscriber:
+    post:
+      operationId: createPageSubscriber
+      tags:
+        - Page
+      summary: Create a page subscriber
+      description: Subscribes an email address to a status page's updates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageSubscriberInput'
+      responses:
+        '200':
+          description: The created subscriber.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageSubscriber'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /check:
+    post:
+      operationId: createCheck
+      tags:
+        - Check
+      summary: Run an on-demand check
+      description: >-
+        Runs an on-demand synthetic check against a URL from one or more regions
+        without creating a persistent monitor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInput'
+      responses:
+        '200':
+          description: The aggregated check results per region.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Check'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /whoami:
+    get:
+      operationId: getWhoami
+      tags:
+        - Check
+      summary: Get the current workspace
+      description: Returns the workspace associated with the supplied API key.
+      responses:
+        '200':
+          description: The current workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-openstatus-key
+      description: OpenStatus API key, created in the workspace settings.
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Monitor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the monitor.
+        name:
+          type: string
+          description: Display name of the monitor.
+        description:
+          type: string
+        active:
+          type: boolean
+          description: Whether the monitor is actively running.
+        public:
+          type: boolean
+          description: Whether monitor data is publicly visible.
+        jobType:
+          type: string
+          description: The monitor protocol.
+          enum:
+            - http
+            - tcp
+            - dns
+        periodicity:
+          type: string
+          description: How frequently the monitor runs.
+          enum:
+            - 30s
+            - 1m
+            - 5m
+            - 10m
+            - 30m
+            - 1h
+        url:
+          type: string
+          description: The endpoint or host to check.
+        method:
+          type: string
+          enum:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - HEAD
+            - OPTIONS
+        regions:
+          type: array
+          description: Regions the monitor runs from (up to 28 available).
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        assertions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assertion'
+        timeout:
+          type: integer
+          description: Request timeout in milliseconds.
+        degradedAfter:
+          type: integer
+          description: Latency threshold (ms) above which the monitor is degraded.
+        retry:
+          type: integer
+          description: Number of retries before marking an outage.
+        otelEndpoint:
+          type: string
+          description: OpenTelemetry endpoint to export metrics to.
+        otelHeaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+    MonitorInput:
+      type: object
+      required:
+        - periodicity
+        - url
+        - regions
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+          default: true
+        public:
+          type: boolean
+          default: false
+        jobType:
+          type: string
+          enum:
+            - http
+            - tcp
+            - dns
+          default: http
+        periodicity:
+          type: string
+          enum:
+            - 30s
+            - 1m
+            - 5m
+            - 10m
+            - 30m
+            - 1h
+        url:
+          type: string
+        method:
+          type: string
+          enum:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - HEAD
+            - OPTIONS
+          default: GET
+        regions:
+          type: array
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        assertions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assertion'
+        timeout:
+          type: integer
+          default: 45000
+        degradedAfter:
+          type: integer
+        retry:
+          type: integer
+          default: 3
+    MonitorSummary:
+      type: object
+      properties:
+        monitorId:
+          type: integer
+        uptime:
+          type: number
+          description: Uptime percentage over the reporting window.
+        avgLatency:
+          type: number
+          description: Average latency in milliseconds.
+        p95Latency:
+          type: number
+        p99Latency:
+          type: number
+        lastTimestamp:
+          type: string
+          format: date-time
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Assertion:
+      type: object
+      description: A condition evaluated against the check response.
+      properties:
+        type:
+          type: string
+          enum:
+            - status
+            - header
+            - textBody
+            - jsonBody
+        compare:
+          type: string
+          enum:
+            - eq
+            - not_eq
+            - gt
+            - gte
+            - lt
+            - lte
+            - contains
+            - not_contains
+        target:
+          type: string
+        key:
+          type: string
+    Incident:
+      type: object
+      properties:
+        id:
+          type: integer
+        startedAt:
+          type: string
+          format: date-time
+        acknowledgedAt:
+          type: string
+          format: date-time
+        acknowledgedBy:
+          type: integer
+        resolvedAt:
+          type: string
+          format: date-time
+        resolvedBy:
+          type: integer
+        monitorId:
+          type: integer
+          description: The monitor that triggered the incident.
+    IncidentUpdate:
+      type: object
+      properties:
+        acknowledgedAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: string
+          format: date-time
+    StatusReport:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+            - investigating
+            - identified
+            - monitoring
+            - resolved
+        pageId:
+          type: integer
+        monitorIds:
+          type: array
+          items:
+            type: integer
+        statusReportUpdateIds:
+          type: array
+          items:
+            type: integer
+    StatusReportInput:
+      type: object
+      required:
+        - title
+        - status
+        - message
+      properties:
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+            - investigating
+            - identified
+            - monitoring
+            - resolved
+        message:
+          type: string
+          description: The first update message for the report.
+        date:
+          type: string
+          format: date-time
+        pageId:
+          type: integer
+        monitorIds:
+          type: array
+          items:
+            type: integer
+    StatusReportUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum:
+            - investigating
+            - identified
+            - monitoring
+            - resolved
+        message:
+          type: string
+        date:
+          type: string
+          format: date-time
+        statusReportId:
+          type: integer
+    StatusReportUpdateInput:
+      type: object
+      required:
+        - status
+        - message
+        - statusReportId
+      properties:
+        status:
+          type: string
+          enum:
+            - investigating
+            - identified
+            - monitoring
+            - resolved
+        message:
+          type: string
+        date:
+          type: string
+          format: date-time
+        statusReportId:
+          type: integer
+    Page:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        slug:
+          type: string
+          description: Subdomain slug under openstatus.dev.
+        customDomain:
+          type: string
+        icon:
+          type: string
+        passwordProtected:
+          type: boolean
+        accessType:
+          type: string
+          enum:
+            - public
+            - password
+            - email-domain
+        monitors:
+          type: array
+          items:
+            type: integer
+    PageInput:
+      type: object
+      required:
+        - title
+        - slug
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        slug:
+          type: string
+        customDomain:
+          type: string
+        icon:
+          type: string
+        passwordProtected:
+          type: boolean
+        monitors:
+          type: array
+          items:
+            type: integer
+    PageSubscriber:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
+        acceptedAt:
+          type: string
+          format: date-time
+    PageSubscriberInput:
+      type: object
+      required:
+        - email
+        - pageId
+      properties:
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
+    Check:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+        method:
+          type: string
+        regions:
+          type: array
+          items:
+            type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckResult'
+    CheckInput:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+        method:
+          type: string
+          enum:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - HEAD
+            - OPTIONS
+          default: GET
+        regions:
+          type: array
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        runCount:
+          type: integer
+          description: Number of runs per region.
+        aggregated:
+          type: boolean
+    CheckResult:
+      type: object
+      properties:
+        region:
+          type: string
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
+          type: string
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        plan:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
