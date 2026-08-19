@@ -1,0 +1,1472 @@
+{
+  "item": [
+    {
+      "id": "636de7cd-995c-4b22-8d8d-07e65546b25e",
+      "name": "Monitor",
+      "description": {
+        "content": "HTTP, TCP, and DNS uptime monitors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "31096797-9efc-40f5-942e-232819a56478",
+          "name": "List all monitors",
+          "request": {
+            "name": "List all monitors",
+            "description": {
+              "content": "Returns all monitors belonging to the authenticated workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0053d3c-f576-48df-852a-c1421a85c382",
+              "name": "A list of monitors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 7094,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"active\": true,\n    \"public\": true,\n    \"jobType\": \"dns\",\n    \"periodicity\": \"1h\",\n    \"url\": \"string\",\n    \"method\": \"DELETE\",\n    \"regions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"headers\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"body\": \"string\",\n    \"assertions\": [\n      {\n        \"type\": \"jsonBody\",\n        \"compare\": \"contains\",\n        \"target\": \"string\",\n        \"key\": \"string\"\n      },\n      {\n        \"type\": \"jsonBody\",\n        \"compare\": \"not_eq\",\n        \"target\": \"string\",\n        \"key\": \"string\"\n      }\n    ],\n    \"timeout\": 8340,\n    \"degradedAfter\": 5577,\n    \"retry\": 5141,\n    \"otelEndpoint\": \"string\",\n    \"otelHeaders\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  {\n    \"id\": 9172,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"active\": false,\n    \"public\": false,\n    \"jobType\": \"dns\",\n    \"periodicity\": \"1m\",\n    \"url\": \"string\",\n    \"method\": \"POST\",\n    \"regions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"headers\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"body\": \"string\",\n    \"assertions\": [\n      {\n        \"type\": \"jsonBody\",\n        \"compare\": \"not_contains\",\n        \"target\": \"string\",\n        \"key\": \"string\"\n      },\n      {\n        \"type\": \"status\",\n        \"compare\": \"gte\",\n        \"target\": \"string\",\n        \"key\": \"string\"\n      }\n    ],\n    \"timeout\": 7862,\n    \"degradedAfter\": 9732,\n    \"retry\": 9621,\n    \"otelEndpoint\": \"string\",\n    \"otelHeaders\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64c38dc9-06ec-48cf-acf7-2b945a637095",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9da96b43-6541-493c-9857-d646805aab4d",
+          "name": "Create a monitor",
+          "request": {
+            "name": "Create a monitor",
+            "description": {
+              "content": "Creates a new HTTP, TCP, or DNS monitor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d24ef6e5-09cd-4f44-94fd-6652d7aa0351",
+              "name": "The created monitor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 609,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"tcp\",\n  \"periodicity\": \"1m\",\n  \"url\": \"string\",\n  \"method\": \"HEAD\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"string\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 5903,\n  \"degradedAfter\": 3339,\n  \"retry\": 3872,\n  \"otelEndpoint\": \"string\",\n  \"otelHeaders\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dc4e8c2-d185-4390-867b-cac620ff1f3a",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80b4abee-c27c-4a8b-8874-192fba82ccd2",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9683f1df-7023-4e3c-833a-cb341587b13d",
+          "name": "Get a monitor",
+          "request": {
+            "name": "Get a monitor",
+            "description": {
+              "content": "Returns a single monitor by its identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee1bfc2f-6949-4d5c-92a4-be769eb161ba",
+              "name": "The requested monitor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 609,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"tcp\",\n  \"periodicity\": \"1m\",\n  \"url\": \"string\",\n  \"method\": \"HEAD\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"string\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 5903,\n  \"degradedAfter\": 3339,\n  \"retry\": 3872,\n  \"otelEndpoint\": \"string\",\n  \"otelHeaders\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dee9aa64-161b-4953-b65f-d1ce689ffc4c",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4ca6ef2-87a0-45ba-90a5-54bf92b2d32f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb39058f-7f2a-4f81-ad12-c3499eddaeff",
+          "name": "Update a monitor",
+          "request": {
+            "name": "Update a monitor",
+            "description": {
+              "content": "Updates an existing monitor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3bfd8db2-d87e-4d1f-9312-d81266b4fb18",
+              "name": "The updated monitor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 609,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"tcp\",\n  \"periodicity\": \"1m\",\n  \"url\": \"string\",\n  \"method\": \"HEAD\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"string\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 5903,\n  \"degradedAfter\": 3339,\n  \"retry\": 3872,\n  \"otelEndpoint\": \"string\",\n  \"otelHeaders\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c504975b-f2a1-4eda-9121-78e7f4f9bc03",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecb2894d-4a07-40be-8026-6b399ec17673",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44ce704d-48fc-40ed-8202-b4450e75b39c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"periodicity\": \"<string>\",\n  \"url\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"active\": true,\n  \"public\": false,\n  \"jobType\": \"http\",\n  \"method\": \"GET\",\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"assertions\": [\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"compare\": \"<string>\",\n      \"target\": \"<string>\",\n      \"key\": \"<string>\"\n    }\n  ],\n  \"timeout\": 45000,\n  \"degradedAfter\": \"<integer>\",\n  \"retry\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e37a6e5b-a058-4ce0-b2e0-fe73a0dd3407",
+          "name": "Delete a monitor",
+          "request": {
+            "name": "Delete a monitor",
+            "description": {
+              "content": "Deletes a monitor by its identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61069c30-c51f-4a76-b411-45e5671787c8",
+              "name": "The monitor was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "92abd6a2-a64c-4c8c-9f7c-f0fde2a6c0e4",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7cd0e2a-98c2-4201-9607-9095d8bda123",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55828951-f409-45d0-8fe4-8108911a6783",
+          "name": "Get a monitor summary",
+          "request": {
+            "name": "Get a monitor summary",
+            "description": {
+              "content": "Returns aggregated uptime and latency metrics for a monitor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor",
+                ":id",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e63aa08-f404-489e-a9ad-259571544518",
+              "name": "The monitor summary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"monitorId\": 4449,\n  \"uptime\": 7230.44623533462,\n  \"avgLatency\": 2935.438391957629,\n  \"p95Latency\": 1049.4810639262398,\n  \"p99Latency\": 3343.876413928307,\n  \"lastTimestamp\": \"1958-06-20T20:22:13.407Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06efa5e3-0f80-4699-8bb3-3170145faa78",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87303b97-eea0-4d81-a40c-395398fa8448",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fad8823-0b06-492e-bcf0-c0c069b8dd88",
+          "name": "Trigger a monitor run",
+          "request": {
+            "name": "Trigger a monitor run",
+            "description": {
+              "content": "Triggers an immediate on-demand run of the monitor across its regions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitor",
+                ":id",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3bca10e-6152-4c20-a0ad-8e63e83a94ee",
+              "name": "The triggered run results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"region\": \"string\",\n    \"status\": 8352,\n    \"latency\": 4894.705452368961,\n    \"timestamp\": \"1972-12-28T14:13:32.090Z\",\n    \"timing\": {\n      \"dns\": 5399.795408416523,\n      \"connect\": 9385.305905452838,\n      \"tlsHandshake\": 3275.384248056762,\n      \"firstByte\": 8144.130012705998,\n      \"transfer\": 4971.05582430539\n    }\n  },\n  {\n    \"region\": \"string\",\n    \"status\": 3349,\n    \"latency\": 5798.624409200298,\n    \"timestamp\": \"1963-01-24T05:16:01.481Z\",\n    \"timing\": {\n      \"dns\": 2131.3472847366165,\n      \"connect\": 6916.4594483235305,\n      \"tlsHandshake\": 8839.580123213549,\n      \"firstByte\": 8966.380336911352,\n      \"transfer\": 8169.29251417302\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1d99962-3d98-4348-9139-02767df5affc",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72d6fb65-d692-47db-8cd2-e2449049fbb5",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitor",
+                    ":id",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1395,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.openstatus.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-openstatus-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "245f29aa-a9ba-43a4-b307-a9b9e85720b0",
+    "name": "OpenStatus Check Monitor API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.\n\nContact Support:\n Name: OpenStatus Support\n Email: ping@openstatus.dev",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenStatus Check Monitor API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-openstatus-key",
+      "value": "{{x-openstatus-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitor",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/monitor"
+          },
+          "docs": "Returns all monitors belonging to the authenticated workspace."
+        },
+        {
+          "info": {
+            "name": "Create a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/monitor",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new HTTP, TCP, or DNS monitor."
+        },
+        {
+          "info": {
+            "name": "Get a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/monitor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single monitor by its identifier."
+        },
+        {
+          "info": {
+            "name": "Update a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.openstatus.dev/v1/monitor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing monitor."
+        },
+        {
+          "info": {
+            "name": "Delete a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.openstatus.dev/v1/monitor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a monitor by its identifier."
+        },
+        {
+          "info": {
+            "name": "Get a monitor summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/monitor/:id/summary",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Returns aggregated uptime and latency metrics for a monitor."
+        },
+        {
+          "info": {
+            "name": "Trigger a monitor run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/monitor/:id/run",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Triggers an immediate on-demand run of the monitor across its regions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

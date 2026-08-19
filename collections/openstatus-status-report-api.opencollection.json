@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenStatus Check Status Report API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-openstatus-key",
+      "value": "{{x-openstatus-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status Report",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all status reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/status_report"
+          },
+          "docs": "Returns all status reports for the authenticated workspace."
+        },
+        {
+          "info": {
+            "name": "Create a status report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/status_report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new status report on a status page."
+        },
+        {
+          "info": {
+            "name": "Get a status report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/status_report/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single status report by its identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a status report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.openstatus.dev/v1/status_report/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a status report by its identifier."
+        },
+        {
+          "info": {
+            "name": "Create a status report update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/status_report_update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends a timeline update (investigating, identified, monitoring, or resolved) to an existing status report."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

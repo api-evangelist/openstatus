@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenStatus Check Incident API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-openstatus-key",
+      "value": "{{x-openstatus-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Incident",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/incident"
+          },
+          "docs": "Returns all incidents for the authenticated workspace."
+        },
+        {
+          "info": {
+            "name": "Get an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/incident/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single incident by its identifier."
+        },
+        {
+          "info": {
+            "name": "Update an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.openstatus.dev/v1/incident/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Acknowledges or resolves an incident."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenStatus Check API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-openstatus-key",
+      "value": "{{x-openstatus-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run an on-demand check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs an on-demand synthetic check against a URL from one or more regions without creating a persistent monitor."
+        },
+        {
+          "info": {
+            "name": "Get the current workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/whoami"
+          },
+          "docs": "Returns the workspace associated with the supplied API key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

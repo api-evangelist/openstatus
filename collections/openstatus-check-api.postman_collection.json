@@ -1,0 +1,371 @@
+{
+  "item": [
+    {
+      "id": "9ee0f889-fc52-4d60-abab-116fdf635313",
+      "name": "Check",
+      "description": {
+        "content": "On-demand synthetic checks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "014a6b1b-0d97-424f-ac68-030fe7ad2900",
+          "name": "Run an on-demand check",
+          "request": {
+            "name": "Run an on-demand check",
+            "description": {
+              "content": "Runs an on-demand synthetic check against a URL from one or more regions without creating a persistent monitor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"method\": \"GET\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"runCount\": \"<integer>\",\n  \"aggregated\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f77064b1-ffe5-4e3a-a914-f1a7163dcf79",
+              "name": "The aggregated check results per region.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"method\": \"GET\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"runCount\": \"<integer>\",\n  \"aggregated\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"url\": \"string\",\n  \"method\": \"string\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"result\": [\n    {\n      \"region\": \"string\",\n      \"status\": 4293,\n      \"latency\": 299.61212779891054,\n      \"timestamp\": \"2011-02-12T14:20:10.786Z\",\n      \"timing\": {\n        \"dns\": 9696.070649216254,\n        \"connect\": 9838.762709838287,\n        \"tlsHandshake\": 1216.2754239533858,\n        \"firstByte\": 2595.7143307375995,\n        \"transfer\": 4887.1294913509\n      }\n    },\n    {\n      \"region\": \"string\",\n      \"status\": 629,\n      \"latency\": 8482.740795022024,\n      \"timestamp\": \"1970-08-09T13:51:01.341Z\",\n      \"timing\": {\n        \"dns\": 6264.5599703204325,\n        \"connect\": 3870.2044672276793,\n        \"tlsHandshake\": 7889.196778943632,\n        \"firstByte\": 5587.618520507923,\n        \"transfer\": 3286.3018242168564\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f94356e2-ef85-4429-bddc-212175f9e154",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"method\": \"GET\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"runCount\": \"<integer>\",\n  \"aggregated\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7312,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb0185e8-0c69-4139-9383-01db41fafe08",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"method\": \"GET\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"body\": \"<string>\",\n  \"runCount\": \"<integer>\",\n  \"aggregated\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7312,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d40b4d76-7adb-46e9-9ae9-fb9858777735",
+          "name": "Get the current workspace",
+          "request": {
+            "name": "Get the current workspace",
+            "description": {
+              "content": "Returns the workspace associated with the supplied API key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "whoami"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b56851e5-0915-4cf3-b6ac-850df8ed7382",
+              "name": "The current workspace.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whoami"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5345,\n  \"slug\": \"string\",\n  \"plan\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30d82b21-8b66-40fa-abaa-74f67503d128",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whoami"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-openstatus-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7312,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.openstatus.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-openstatus-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6cea1616-5d0c-4a7f-9fcb-a7e2d8a90b36",
+    "name": "OpenStatus Check API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.\n\nContact Support:\n Name: OpenStatus Support\n Email: ping@openstatus.dev",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenStatus Check Page API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-openstatus-key",
+      "value": "{{x-openstatus-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Page",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all status pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/page"
+          },
+          "docs": "Returns all status pages for the authenticated workspace."
+        },
+        {
+          "info": {
+            "name": "Create a status page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/page",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new public status page."
+        },
+        {
+          "info": {
+            "name": "Get a status page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openstatus.dev/v1/page/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single status page by its identifier."
+        },
+        {
+          "info": {
+            "name": "Update a status page",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.openstatus.dev/v1/page/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing status page."
+        },
+        {
+          "info": {
+            "name": "Create a page subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openstatus.dev/v1/page_subscriber",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribes an email address to a status page's updates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
