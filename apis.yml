@@ -8,6 +8,18 @@ description: OpenStatus is an open-source synthetic monitoring and status-page p
   REST API at https://api.openstatus.dev/v1 lets teams programmatically manage monitors,
   status pages, status reports, incidents, and on-demand checks. The platform is free
   to self-host (AGPL-3.0) and also available as a managed cloud service.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
