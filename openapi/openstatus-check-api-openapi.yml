@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: OpenStatus Check API
   description: REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.
@@ -89,6 +89,22 @@ components:
               type: number
             transfer:
               type: number
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        plan:
+          type: string
     CheckInput:
       type: object
       required:
@@ -121,29 +137,6 @@ components:
           description: Number of runs per region.
         aggregated:
           type: boolean
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: integer
-        slug:
-          type: string
-        plan:
-          type: string
-    Header:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
     Check:
       type: object
       properties:
@@ -161,15 +154,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CheckResult'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
   responses:
-    Unauthorized:
-      description: The API key is missing or invalid.
+    BadRequest:
+      description: The request was malformed or failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
+    Unauthorized:
+      description: The API key is missing or invalid.
       content:
         application/json:
           schema:

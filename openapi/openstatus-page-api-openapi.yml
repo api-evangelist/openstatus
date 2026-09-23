@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: OpenStatus Check Page API
+  title: OpenStatus Page API
   description: REST API for the OpenStatus open-source synthetic monitoring and status-page platform. Manage HTTP, TCP, and DNS uptime monitors across 28 global regions, publish status pages, file status reports, work incidents, and run on-demand checks. Authenticate with an API key in the x-openstatus-key header.
   termsOfService: https://www.openstatus.dev/legal/terms
   contact:
@@ -154,6 +154,30 @@ components:
           type: array
           items:
             type: integer
+    PageSubscriber:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
+        acceptedAt:
+          type: string
+          format: date-time
+    PageSubscriberInput:
+      type: object
+      required:
+      - email
+      - pageId
+      properties:
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
     Page:
       type: object
       properties:
@@ -189,33 +213,17 @@ components:
           type: integer
         message:
           type: string
-    PageSubscriberInput:
-      type: object
-      required:
-      - email
-      - pageId
-      properties:
-        email:
-          type: string
-          format: email
-        pageId:
-          type: integer
-    PageSubscriber:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
-        pageId:
-          type: integer
-        acceptedAt:
-          type: string
-          format: date-time
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request was malformed or failed validation.
       content:
         application/json:
           schema:
@@ -226,20 +234,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
   securitySchemes:
     apiKey:
       type: apiKey
