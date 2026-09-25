@@ -1,0 +1,146 @@
+# Vendor facets — openstatus. An open-source, self-hostable status page and synthetic monitoring product; on
+# the Kin Score it touches one pointer check, status_page_present (6 pts), and earns it in full: hosted pages
+# 404 unknown paths, so the pointer-liveness probe can prove the page. Its API, feeds and MCP score nothing.
+vendor: openstatus
+name: openstatus
+website: https://www.openstatus.dev
+areas:
+- status-page
+registry_keys: []
+rubric_schema_version: 0.22.0
+generated: '2026-09-25'
+features_refreshed: '2026-09-25'
+basis: capability
+summary: >-
+  openstatus moves one Kin Score check, status_page_present (6 of 38 operational-transparency points),
+  once the provider declares the page as a StatusPage in apis.yml. Its hosting clears the pointer-liveness
+  probe — *.openstatus.dev pages return a real 404 for nonsense paths — so the free Hobby page on the
+  default subdomain earns the same full credit as a custom domain. No vendor-registry key detects it yet,
+  so its customers cannot be counted. RSS/Atom and JSON feeds, the OpenAPI-described API and the MCP server
+  are real practice that scores nothing for the provider.
+features:
+- id: hosted-status-page
+  name: Hosted or self-hosted status page
+  description: >-
+    Status pages with incident history, maintenance windows, per-component uptime and password protection;
+    open source and self-hostable, or hosted with a free Hobby tier.
+  source: https://www.openstatus.dev/
+  tier: all
+- id: soft-404-safe-hosting
+  name: Real 404 for unknown paths (measured)
+  description: >-
+    Probed 2026-09-25: openstatus.openstatus.dev and status.openstatus.dev return 200 for the page and
+    404 for a nonsense path.
+  source: https://status.openstatus.dev
+  tier: all
+- id: custom-domain-and-feeds
+  name: Custom domain; email, RSS/Atom and JSON subscriber feeds
+  description: >-
+    Custom domain from the Starter plan; subscribers by email, RSS/Atom and JSON; public or private pages.
+  source: https://www.openstatus.dev/status-page
+  tier: paid
+- id: page-config
+  name: Component uptime bars, themes and locales
+  description: Configurable uptime/history bars per component, themes and multi-language pages.
+  source: https://www.openstatus.dev/docs/tutorial/how-to-configure-status-page
+  tier: all
+- id: api-cli-mcp
+  name: API with OpenAPI spec, CLI, Terraform and MCP server
+  description: Programmatic management of monitors and pages, including an MCP integration for AI clients.
+  source: https://www.openstatus.dev/
+  tier: unknown
+maps:
+- feature: hosted-status-page
+  check: status_page_present
+  layer: composite
+  credit: 1.0
+  provider_must: >-
+    Declare the page in apis.yml as common[].type StatusPage; the pointer is liveness-graded and grades
+    live.
+  note: Binary check, cleared in full on any plan. The only check the status-page area touches.
+  catalog_pass_rate: 0.125
+  facet: operational_transparency
+  points: 6
+  baseline_pass_rate: 0.376
+earns_nothing:
+- feature: api-cli-mcp
+  check: mcp_server
+  why: >-
+    The MCP server manages the provider's openstatus account; the dimension reads an MCP server for the
+    provider's own API, described in its mcp/ manifest.
+out_of_reach:
+  checks:
+  - change_log_present
+  - deprecation_policy
+  - roadmap_present
+  - rate_limits_documented
+  - webhooks_advertised
+  note: A status page publishes nothing about the API's changes, limits, deprecations or own webhooks.
+unscored_practice:
+- feature: custom-domain-and-feeds
+  why: RSS/Atom and JSON status feeds an agent could consume; no check reads them.
+- feature: page-config
+  why: Per-component uptime history; unscored.
+surface:
+  operational_transparency:
+    reachable: 6.0
+    total: 38
+  agent_readiness:
+    reachable: 0
+    total: 139
+hard_rule: >-
+  A model, not a score. Adopting this vendor changes a provider's Kin Score only when the provider publishes
+  the resulting artifacts on its own surface; nothing here writes a score, and no sponsorship or partnership
+  can.
+method: searched
+source:
+- https://status.openstatus.dev
+- https://www.openstatus.dev/
+- https://www.openstatus.dev/docs/tutorial/how-to-configure-status-page
+- https://www.openstatus.dev/status-page
+measured:
+  cohort:
+    method: vendors-catalog.json detections (CNAME / header / URL shape / markup), never a name match
+    detected: 0
+    in_baseline: 0
+  control:
+    basis: providers earning contract_present + documentation_present + api_reference_present, minus the
+      cohort
+    n: 5216
+  metric: >-
+    cohort_pct / control_pct = mean share of the check's points earned (derived and platform credit weighted),
+    x100
+  measured_on: '2026-09-25'
+  status: 'not measurable: 0 detected customers clear the baseline (need 20)'
+simulation:
+  simulated_on: '2026-09-25'
+  rubric: 0.23.0
+  population: providers publishing a contract (contract_present earned), replayable exactly
+  providers: 8977
+  providers_unreplayable: 987
+  providers_moved: 6390
+  conditional_rows: excluded (they depend on what the API already does)
+  composite_lift:
+    median: 2.0
+    p75: 2.1
+    p90: 2.1
+    max: 2.1
+    mean_among_movers: 1.9
+  agent_readiness_lift:
+    median: 0.0
+    p75: 0.0
+    p90: 0.0
+    max: 0.0
+    mean_among_movers: 0.0
+  facet_lift_median_among_movers:
+    operational_transparency: 15.8
+  composite_band_moves:
+    thin -> developing: 598
+    developing -> strong: 172
+    emerging -> thin: 158
+    strong -> exemplar: 43
+    minimal -> emerging: 1
+  agent_readiness_band_moves: {}
+  method: >-
+    each provider's own kin/checks file, the vendor's maps at their stated credit, the scorer's composite
+    formula; from -> to, nothing written

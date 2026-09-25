@@ -228,6 +228,8 @@ apis:
   - type: APIReference
     url: https://www.openstatus.dev/docs/api-reference/v1/check
 common:
+- type: VendorFacets
+  url: vendor-facets/openstatus-vendor-facets.yml
 - type: AgenticAccess
   url: agentic-access/openstatus-agentic-access.yml
 - type: TrustCenter
