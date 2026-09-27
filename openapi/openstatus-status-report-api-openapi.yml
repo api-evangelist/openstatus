@@ -119,14 +119,39 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   schemas:
-    StatusReport:
+    StatusReportUpdate:
       type: object
       properties:
         id:
           type: integer
-        title:
-          type: string
         status:
           type: string
           enum:
@@ -134,16 +159,20 @@ components:
           - identified
           - monitoring
           - resolved
-        pageId:
+        message:
+          type: string
+        date:
+          type: string
+          format: date-time
+        statusReportId:
           type: integer
-        monitorIds:
-          type: array
-          items:
-            type: integer
-        statusReportUpdateIds:
-          type: array
-          items:
-            type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     StatusReportInput:
       type: object
       required:
@@ -172,6 +201,30 @@ components:
           type: array
           items:
             type: integer
+    StatusReport:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
+        pageId:
+          type: integer
+        monitorIds:
+          type: array
+          items:
+            type: integer
+        statusReportUpdateIds:
+          type: array
+          items:
+            type: integer
     StatusReportUpdateInput:
       type: object
       required:
@@ -193,59 +246,6 @@ components:
           format: date-time
         statusReportId:
           type: integer
-    StatusReportUpdate:
-      type: object
-      properties:
-        id:
-          type: integer
-        status:
-          type: string
-          enum:
-          - investigating
-          - identified
-          - monitoring
-          - resolved
-        message:
-          type: string
-        date:
-          type: string
-          format: date-time
-        statusReportId:
-          type: integer
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
-  responses:
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

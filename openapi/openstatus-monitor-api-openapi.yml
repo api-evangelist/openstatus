@@ -163,24 +163,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    MonitorSummary:
-      type: object
-      properties:
-        monitorId:
-          type: integer
-        uptime:
-          type: number
-          description: Uptime percentage over the reporting window.
-        avgLatency:
-          type: number
-          description: Average latency in milliseconds.
-        p95Latency:
-          type: number
-        p99Latency:
-          type: number
-        lastTimestamp:
-          type: string
-          format: date-time
     Assertion:
       type: object
       description: A condition evaluated against the check response.
@@ -206,40 +188,6 @@ components:
         target:
           type: string
         key:
-          type: string
-    CheckResult:
-      type: object
-      properties:
-        region:
-          type: string
-        status:
-          type: integer
-          description: HTTP status code returned.
-        latency:
-          type: number
-          description: Total latency in milliseconds.
-        timestamp:
-          type: string
-          format: date-time
-        timing:
-          type: object
-          properties:
-            dns:
-              type: number
-            connect:
-              type: number
-            tlsHandshake:
-              type: number
-            firstByte:
-              type: number
-            transfer:
-              type: number
-    Header:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
           type: string
     MonitorInput:
       type: object
@@ -392,14 +340,58 @@ components:
           type: integer
         message:
           type: string
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
+    MonitorSummary:
+      type: object
+      properties:
+        monitorId:
+          type: integer
+        uptime:
+          type: number
+          description: Uptime percentage over the reporting window.
+        avgLatency:
+          type: number
+          description: Average latency in milliseconds.
+        p95Latency:
+          type: number
+        p99Latency:
+          type: number
+        lastTimestamp:
+          type: string
+          format: date-time
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    CheckResult:
+      type: object
+      properties:
+        region:
+          type: string
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
+          type: string
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
   responses:
     BadRequest:
       description: The request was malformed or failed validation.
@@ -419,6 +411,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   securitySchemes:
     apiKey:
       type: apiKey

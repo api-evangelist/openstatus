@@ -131,29 +131,34 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   schemas:
-    PageInput:
-      type: object
-      required:
-      - title
-      - slug
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        slug:
-          type: string
-        customDomain:
-          type: string
-        icon:
-          type: string
-        passwordProtected:
-          type: boolean
-        monitors:
-          type: array
-          items:
-            type: integer
     PageSubscriber:
       type: object
       properties:
@@ -167,6 +172,13 @@ components:
         acceptedAt:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     PageSubscriberInput:
       type: object
       required:
@@ -206,40 +218,28 @@ components:
           type: array
           items:
             type: integer
-    Error:
+    PageInput:
       type: object
+      required:
+      - title
+      - slug
       properties:
-        code:
-          type: integer
-        message:
+        title:
           type: string
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        description:
+          type: string
+        slug:
+          type: string
+        customDomain:
+          type: string
+        icon:
+          type: string
+        passwordProtected:
+          type: boolean
+        monitors:
+          type: array
+          items:
+            type: integer
   securitySchemes:
     apiKey:
       type: apiKey

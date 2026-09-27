@@ -41,7 +41,7 @@ tags:
 - Uptime
 - Status Pages
 - Incidents
-- Open-Source
+- Open Source
 - Observability
 tags_raw:
 - Monitoring
@@ -51,6 +51,7 @@ tags_raw:
 - Incidents
 - Open Source
 - Observability
+- Open-Source
 created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.23'
