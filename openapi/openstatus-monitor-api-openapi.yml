@@ -163,99 +163,40 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Assertion:
+    CheckResult:
       type: object
-      description: A condition evaluated against the check response.
       properties:
-        type:
+        region:
           type: string
-          enum:
-          - status
-          - header
-          - textBody
-          - jsonBody
-        compare:
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
           type: string
-          enum:
-          - eq
-          - not_eq
-          - gt
-          - gte
-          - lt
-          - lte
-          - contains
-          - not_contains
-        target:
-          type: string
-        key:
-          type: string
-    MonitorInput:
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
+    Error:
       type: object
-      required:
-      - periodicity
-      - url
-      - regions
       properties:
-        name:
-          type: string
-        description:
-          type: string
-        active:
-          type: boolean
-          default: true
-        public:
-          type: boolean
-          default: false
-        jobType:
-          type: string
-          enum:
-          - http
-          - tcp
-          - dns
-          default: http
-        periodicity:
-          type: string
-          enum:
-          - 30s
-          - 1m
-          - 5m
-          - 10m
-          - 30m
-          - 1h
-        url:
-          type: string
-        method:
-          type: string
-          enum:
-          - GET
-          - POST
-          - PUT
-          - DELETE
-          - HEAD
-          - OPTIONS
-          default: GET
-        regions:
-          type: array
-          items:
-            type: string
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Header'
-        body:
-          type: string
-        assertions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Assertion'
-        timeout:
+        code:
           type: integer
-          default: 45000
-        degradedAfter:
-          type: integer
-        retry:
-          type: integer
-          default: 3
+        message:
+          type: string
     Monitor:
       type: object
       properties:
@@ -333,13 +274,80 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Header'
-    Error:
+    Header:
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        key:
           type: string
+        value:
+          type: string
+    MonitorInput:
+      type: object
+      required:
+      - periodicity
+      - url
+      - regions
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+          default: true
+        public:
+          type: boolean
+          default: false
+        jobType:
+          type: string
+          enum:
+          - http
+          - tcp
+          - dns
+          default: http
+        periodicity:
+          type: string
+          enum:
+          - 30s
+          - 1m
+          - 5m
+          - 10m
+          - 30m
+          - 1h
+        url:
+          type: string
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - HEAD
+          - OPTIONS
+          default: GET
+        regions:
+          type: array
+          items:
+            type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+        assertions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assertion'
+        timeout:
+          type: integer
+          default: 45000
+        degradedAfter:
+          type: integer
+        retry:
+          type: integer
+          default: 3
     MonitorSummary:
       type: object
       properties:
@@ -358,43 +366,43 @@ components:
         lastTimestamp:
           type: string
           format: date-time
-    Header:
+    Assertion:
       type: object
+      description: A condition evaluated against the check response.
       properties:
+        type:
+          type: string
+          enum:
+          - status
+          - header
+          - textBody
+          - jsonBody
+        compare:
+          type: string
+          enum:
+          - eq
+          - not_eq
+          - gt
+          - gte
+          - lt
+          - lte
+          - contains
+          - not_contains
+        target:
+          type: string
         key:
           type: string
-        value:
-          type: string
-    CheckResult:
-      type: object
-      properties:
-        region:
-          type: string
-        status:
-          type: integer
-          description: HTTP status code returned.
-        latency:
-          type: number
-          description: Total latency in milliseconds.
-        timestamp:
-          type: string
-          format: date-time
-        timing:
-          type: object
-          properties:
-            dns:
-              type: number
-            connect:
-              type: number
-            tlsHandshake:
-              type: number
-            firstByte:
-              type: number
-            transfer:
-              type: number
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -405,20 +413,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request was malformed or failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
   securitySchemes:
     apiKey:
       type: apiKey

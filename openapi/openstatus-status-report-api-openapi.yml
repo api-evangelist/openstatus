@@ -119,34 +119,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     StatusReportUpdate:
       type: object
       properties:
@@ -166,13 +146,51 @@ components:
           format: date-time
         statusReportId:
           type: integer
-    Error:
+    StatusReportUpdateInput:
       type: object
+      required:
+      - status
+      - message
+      - statusReportId
       properties:
-        code:
-          type: integer
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
         message:
           type: string
+        date:
+          type: string
+          format: date-time
+        statusReportId:
+          type: integer
+    StatusReport:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - monitoring
+          - resolved
+        pageId:
+          type: integer
+        monitorIds:
+          type: array
+          items:
+            type: integer
+        statusReportUpdateIds:
+          type: array
+          items:
+            type: integer
     StatusReportInput:
       type: object
       required:
@@ -201,51 +219,33 @@ components:
           type: array
           items:
             type: integer
-    StatusReport:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        status:
-          type: string
-          enum:
-          - investigating
-          - identified
-          - monitoring
-          - resolved
-        pageId:
-          type: integer
-        monitorIds:
-          type: array
-          items:
-            type: integer
-        statusReportUpdateIds:
-          type: array
-          items:
-            type: integer
-    StatusReportUpdateInput:
-      type: object
-      required:
-      - status
-      - message
-      - statusReportId
-      properties:
-        status:
-          type: string
-          enum:
-          - investigating
-          - identified
-          - monitoring
-          - resolved
-        message:
-          type: string
-        date:
-          type: string
-          format: date-time
-        statusReportId:
-          type: integer
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

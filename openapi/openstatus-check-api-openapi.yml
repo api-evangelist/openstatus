@@ -61,51 +61,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    Check:
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-        method:
-          type: string
-        regions:
-          type: array
-          items:
-            type: string
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckResult'
-    Header:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
     CheckResult:
       type: object
       properties:
@@ -133,14 +89,12 @@ components:
               type: number
             transfer:
               type: number
-    Workspace:
+    Error:
       type: object
       properties:
-        id:
+        code:
           type: integer
-        slug:
-          type: string
-        plan:
+        message:
           type: string
     CheckInput:
       type: object
@@ -174,6 +128,52 @@ components:
           description: Number of runs per region.
         aggregated:
           type: boolean
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        plan:
+          type: string
+    Check:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+        method:
+          type: string
+        regions:
+          type: array
+          items:
+            type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckResult'
+  responses:
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

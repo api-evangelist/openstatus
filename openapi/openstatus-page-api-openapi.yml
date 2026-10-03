@@ -131,65 +131,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
   schemas:
-    PageSubscriber:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
-        pageId:
-          type: integer
-        acceptedAt:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    PageSubscriberInput:
-      type: object
-      required:
-      - email
-      - pageId
-      properties:
-        email:
-          type: string
-          format: email
-        pageId:
-          type: integer
     Page:
       type: object
       properties:
@@ -218,6 +160,24 @@ components:
           type: array
           items:
             type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    PageSubscriberInput:
+      type: object
+      required:
+      - email
+      - pageId
+      properties:
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
     PageInput:
       type: object
       required:
@@ -240,6 +200,46 @@ components:
           type: array
           items:
             type: integer
+    PageSubscriber:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
+        acceptedAt:
+          type: string
+          format: date-time
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey
