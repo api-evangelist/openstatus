@@ -229,6 +229,9 @@ apis:
   - type: APIReference
     url: https://www.openstatus.dev/docs/api-reference/v1/check
 common:
+- type: CapabilityMap
+  url: capabilities/openstatus-capability-edges.yml
+  name: OpenStatus Business Capability Map
 - type: VendorFacets
   url: vendor-facets/openstatus-vendor-facets.yml
 - type: AgenticAccess
