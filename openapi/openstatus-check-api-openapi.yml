@@ -61,20 +61,34 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    CheckResult:
+      type: object
+      properties:
+        region:
+          type: string
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
+          type: string
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
     CheckInput:
       type: object
       required:
@@ -107,6 +121,20 @@ components:
           description: Number of runs per region.
         aggregated:
           type: boolean
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     Workspace:
       type: object
       properties:
@@ -116,40 +144,6 @@ components:
           type: string
         plan:
           type: string
-    Header:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    CheckResult:
-      type: object
-      properties:
-        region:
-          type: string
-        status:
-          type: integer
-          description: HTTP status code returned.
-        latency:
-          type: number
-          description: Total latency in milliseconds.
-        timestamp:
-          type: string
-          format: date-time
-        timing:
-          type: object
-          properties:
-            dns:
-              type: number
-            connect:
-              type: number
-            tlsHandshake:
-              type: number
-            firstByte:
-              type: number
-            transfer:
-              type: number
     Check:
       type: object
       properties:
@@ -167,13 +161,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CheckResult'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

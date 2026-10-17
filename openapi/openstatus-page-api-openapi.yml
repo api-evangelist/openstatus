@@ -132,6 +132,12 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: The API key is missing or invalid.
       content:
@@ -144,45 +150,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
   schemas:
-    PageSubscriber:
+    Error:
       type: object
       properties:
-        id:
+        code:
           type: integer
-        email:
+        message:
           type: string
-          format: email
-        pageId:
-          type: integer
-        acceptedAt:
-          type: string
-          format: date-time
-    PageSubscriberInput:
-      type: object
-      required:
-      - email
-      - pageId
-      properties:
-        email:
-          type: string
-          format: email
-        pageId:
-          type: integer
     PageInput:
       type: object
       required:
@@ -233,13 +208,38 @@ components:
           type: array
           items:
             type: integer
-    Error:
+    PageSubscriber:
       type: object
       properties:
-        code:
+        id:
           type: integer
-        message:
+        email:
           type: string
+          format: email
+        pageId:
+          type: integer
+        acceptedAt:
+          type: string
+          format: date-time
+    PageSubscriberInput:
+      type: object
+      required:
+      - email
+      - pageId
+      properties:
+        email:
+          type: string
+          format: email
+        pageId:
+          type: integer
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   securitySchemes:
     apiKey:
       type: apiKey

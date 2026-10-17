@@ -162,112 +162,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    IdParam:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: integer
   schemas:
-    MonitorSummary:
-      type: object
-      properties:
-        monitorId:
-          type: integer
-        uptime:
-          type: number
-          description: Uptime percentage over the reporting window.
-        avgLatency:
-          type: number
-          description: Average latency in milliseconds.
-        p95Latency:
-          type: number
-        p99Latency:
-          type: number
-        lastTimestamp:
-          type: string
-          format: date-time
-    Header:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    CheckResult:
-      type: object
-      properties:
-        region:
-          type: string
-        status:
-          type: integer
-          description: HTTP status code returned.
-        latency:
-          type: number
-          description: Total latency in milliseconds.
-        timestamp:
-          type: string
-          format: date-time
-        timing:
-          type: object
-          properties:
-            dns:
-              type: number
-            connect:
-              type: number
-            tlsHandshake:
-              type: number
-            firstByte:
-              type: number
-            transfer:
-              type: number
-    Assertion:
-      type: object
-      description: A condition evaluated against the check response.
-      properties:
-        type:
-          type: string
-          enum:
-          - status
-          - header
-          - textBody
-          - jsonBody
-        compare:
-          type: string
-          enum:
-          - eq
-          - not_eq
-          - gt
-          - gte
-          - lt
-          - lte
-          - contains
-          - not_contains
-        target:
-          type: string
-        key:
-          type: string
     Monitor:
       type: object
       properties:
@@ -345,6 +240,59 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Header'
+    Assertion:
+      type: object
+      description: A condition evaluated against the check response.
+      properties:
+        type:
+          type: string
+          enum:
+          - status
+          - header
+          - textBody
+          - jsonBody
+        compare:
+          type: string
+          enum:
+          - eq
+          - not_eq
+          - gt
+          - gte
+          - lt
+          - lte
+          - contains
+          - not_contains
+        target:
+          type: string
+        key:
+          type: string
+    CheckResult:
+      type: object
+      properties:
+        region:
+          type: string
+        status:
+          type: integer
+          description: HTTP status code returned.
+        latency:
+          type: number
+          description: Total latency in milliseconds.
+        timestamp:
+          type: string
+          format: date-time
+        timing:
+          type: object
+          properties:
+            dns:
+              type: number
+            connect:
+              type: number
+            tlsHandshake:
+              type: number
+            firstByte:
+              type: number
+            transfer:
+              type: number
     MonitorInput:
       type: object
       required:
@@ -412,6 +360,13 @@ components:
         retry:
           type: integer
           default: 3
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
     Error:
       type: object
       properties:
@@ -419,6 +374,51 @@ components:
           type: integer
         message:
           type: string
+    MonitorSummary:
+      type: object
+      properties:
+        monitorId:
+          type: integer
+        uptime:
+          type: number
+          description: Uptime percentage over the reporting window.
+        avgLatency:
+          type: number
+          description: Average latency in milliseconds.
+        p95Latency:
+          type: number
+        p99Latency:
+          type: number
+        lastTimestamp:
+          type: string
+          format: date-time
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: integer
   securitySchemes:
     apiKey:
       type: apiKey
