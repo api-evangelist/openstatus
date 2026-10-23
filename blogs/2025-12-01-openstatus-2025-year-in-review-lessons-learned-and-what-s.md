@@ -1,0 +1,7 @@
+---
+title: "Openstatus 2025 Year in Review: Lessons Learned and What’s Next"
+url: "https://www.openstatus.dev/blog/2026-roadmap"
+date: "2025-12-01"
+feed_url: "https://www.openstatus.dev/blog/feed.xml"
+---
+As we close out 2025, it’s the perfect time to pause, reflect, and share where we are heading for 2026.
