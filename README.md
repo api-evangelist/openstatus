@@ -1,4 +1,4 @@
-# OpenStatus (openstatus)
+# OpenStatus
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,143 +66,134 @@
 
 OpenStatus is an open-source synthetic monitoring and status-page platform. It runs HTTP, TCP, and DNS uptime checks from 28 global regions, publishes hosted and self-hostable status pages, and manages incidents and status reports. The OpenStatus REST API at https://api.openstatus.dev/v1 lets teams programmatically manage monitors, status pages, status reports, incidents, and on-demand checks. The platform is free to self-host (AGPL-3.0) and also available as a managed cloud service.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/openstatus/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/openstatus/refs/heads/main/apis.yml)
+**Areas:** Monitoring · Synthetic Monitoring · Uptime · Status Pages · Incidents · Open Source · Observability
 
-## Tags
+## OpenStatus on APIs.io
 
-- Monitoring
-- Synthetic Monitoring
-- Uptime
-- Status Pages
-- Incidents
-- Open Source
-- Observability
+Everything profiled for OpenStatus is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/openstatus/](https://apis.io/providers/openstatus/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [OpenStatus Check API](https://apis.io/apis/openstatus/openstatus-check-api/) — On-demand synthetic checks.
+- [OpenStatus Incident API](https://apis.io/apis/openstatus/openstatus-incident-api/) — Incidents automatically opened when a monitor fails.
+- [OpenStatus Monitor API](https://apis.io/apis/openstatus/openstatus-monitor-api/) — HTTP, TCP, and DNS uptime monitors.
+- [OpenStatus Page API](https://apis.io/apis/openstatus/openstatus-page-api/) — Public status pages and subscribers.
+- [OpenStatus Status Report API](https://apis.io/apis/openstatus/openstatus-status-report-api/) — Status reports and their updates.
 
-## APIs
+### Published properties
 
-### OpenStatus Monitors
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, read, update, and delete HTTP, TCP, and DNS uptime monitors running across 28 global regions, with periodicity, assertions, retries, timeouts, and OpenTelemetry export. Includes monitor summaries, results, and on-demand runs.
+#### MCP servers (1)
 
-- **Human URL:** [https://www.openstatus.dev/docs/api-reference/v1/monitor](https://www.openstatus.dev/docs/api-reference/v1/monitor)
-- **Base URL:** `https://api.openstatus.dev/v1`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [openstatus](https://apis.io/servers/openstatus/openstatus/)
 
-- Monitors
-- Uptime
-- HTTP
-- TCP
-- DNS
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://www.openstatus.dev/docs/api-reference/v1/monitor)
-- [API Reference](https://www.openstatus.dev/docs/api-reference/v1/monitor)
-- [OpenAPI](openapi/openstatus-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openstatus.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openstatus.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Openstatus Agentic Access](https://apis.io/agentic-access/openstatus/openstatus-agentic-access/)
 
-### OpenStatus Incidents
+#### Collections (6)
 
-List, retrieve, acknowledge, and resolve incidents automatically opened when a monitor fails its assertions, tying detected downtime back to the originating monitor.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://www.openstatus.dev/docs/api-reference/v1/incident](https://www.openstatus.dev/docs/api-reference/v1/incident)
-- **Base URL:** `https://api.openstatus.dev/v1`
+- [OpenStatus API](https://apis.io/collections/openstatus/open-openstatus/)
+- [OpenStatus Check API](https://apis.io/collections/openstatus/open-openstatus-check-api/)
+- [OpenStatus Check Incident API](https://apis.io/collections/openstatus/open-openstatus-incident-api/)
+- [OpenStatus Check Monitor API](https://apis.io/collections/openstatus/open-openstatus-monitor-api/)
+- [OpenStatus Check Page API](https://apis.io/collections/openstatus/open-openstatus-page-api/)
+- [OpenStatus Check Status Report API](https://apis.io/collections/openstatus/open-openstatus-status-report-api/)
 
-#### Tags
+#### Security (4)
 
-- Incidents
-- Alerts
-- Acknowledgement
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Openstatus Authentication](https://apis.io/security/openstatus/openstatus-authentication/)
+- [Openstatus Domain Security](https://apis.io/security/openstatus/openstatus-domain-security/)
+- [Openstatus Trust Center](https://apis.io/security/openstatus/openstatus-trust-center/)
+- [Openstatus Vulnerability Disclosure](https://apis.io/security/openstatus/openstatus-vulnerability-disclosure/)
 
-- [Documentation](https://www.openstatus.dev/docs/api-reference/v1/incident)
-- [API Reference](https://www.openstatus.dev/docs/api-reference/v1/incident)
-- [OpenAPI](openapi/openstatus-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openstatus.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openstatus.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### OpenStatus Status Reports
+Published plans, tiers and prices.
 
-Create and manage status reports and their timeline of updates (investigating, identified, monitoring, resolved) that publish incident communications to a status page and its affected monitors.
+- [Openstatus Plans Pricing](https://apis.io/plans/openstatus/openstatus-plans-pricing/)
 
-- **Human URL:** [https://www.openstatus.dev/docs/api-reference/v1/status-report](https://www.openstatus.dev/docs/api-reference/v1/status-report)
-- **Base URL:** `https://api.openstatus.dev/v1`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Status Reports
-- Updates
-- Communication
+- [Openstatus Rate Limits](https://apis.io/rate-limits/openstatus/openstatus-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://www.openstatus.dev/docs/api-reference/v1/status-report)
-- [API Reference](https://www.openstatus.dev/docs/api-reference/v1/status-report)
-- [OpenAPI](openapi/openstatus-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openstatus.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openstatus.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### OpenStatus Status Pages
+- [Openstatus Finops](https://apis.io/finops/openstatus/openstatus-finops/)
 
-Create and manage public status pages with custom domains, access controls (public, password, email-domain), grouped monitor components, and email subscribers.
+## Where to find this API
 
-- **Human URL:** [https://www.openstatus.dev/docs/api-reference/v1/page](https://www.openstatus.dev/docs/api-reference/v1/page)
-- **Base URL:** `https://api.openstatus.dev/v1`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Status Pages
-- Subscribers
-- Public
-
-#### Properties
-
-- [Documentation](https://www.openstatus.dev/docs/api-reference/v1/page)
-- [API Reference](https://www.openstatus.dev/docs/api-reference/v1/page)
-- [OpenAPI](openapi/openstatus-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openstatus.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openstatus.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenStatus Checks
-
-Run on-demand synthetic checks against a URL from one or more regions without creating a persistent monitor, returning per-region latency and assertion results.
-
-- **Human URL:** [https://www.openstatus.dev/docs/api-reference/v1/check](https://www.openstatus.dev/docs/api-reference/v1/check)
-- **Base URL:** `https://api.openstatus.dev/v1`
-
-#### Tags
-
-- Checks
-- On-Demand
-- Synthetic
-
-#### Properties
-
-- [Documentation](https://www.openstatus.dev/docs/api-reference/v1/check)
-- [API Reference](https://www.openstatus.dev/docs/api-reference/v1/check)
-- [OpenAPI](openapi/openstatus-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openstatus.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openstatus.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/openstatusHQ)
-- [LinkedIn](https://www.linkedin.com/company/openstatushq)
 - [Website](https://www.openstatus.dev)
 - [Documentation](https://www.openstatus.dev/docs)
-- [Plans](plans/openstatus-plans-pricing.yml)
-- [Rate Limits](rate-limits/openstatus-rate-limits.yml)
-- [Fin Ops](finops/openstatus-finops.yml)
+- [Blog](https://www.openstatus.dev/blog)
+- [GitHub](https://github.com/openstatusHQ)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.5** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 53.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 25.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 30.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/openstatus/](https://apis.io/providers/openstatus/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OpenStatus: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/openstatus/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
